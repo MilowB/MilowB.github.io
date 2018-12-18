@@ -1,5 +1,5 @@
 ---
-title: 
+title: title
 layout: default
 ---
 ## Who am I ?
