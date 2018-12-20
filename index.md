@@ -9,4 +9,9 @@ I'm Mickaël Bettinelli, first year Ph.D student in the Grenoble-Alpes Universit
 
 ## Thesis description
 
-Soon
+--Thesis description--
+
+## Contact me
+
+[Github](https://github.com/MilowB)
+[Linkedin](https://www.linkedin.com/in/micka%C3%ABl-bettinelli-a4426198/)
