@@ -9,7 +9,8 @@ I'm Mickaël Bettinelli, first year Ph.D student in the Grenoble-Alpes Universit
 
 ## Thesis description
 
---Thesis description--
+Circular Economy Creating circular industrial systems able to transform post‐used products into new products require reuse‐oriented strategies, resulting in component remanufacture that leads to the manufacture of totally new products from the transformation of post‐used components.
+The aim of this thesis is to study a multi‐agent model for a re‐purposing‐oriented manufacturing system. Taking benet of the collective intelligence capabilities, it will be a decision making support system able to integrate variability of inputs availability and uncertainty (openness), highly adaptation to market, humans (high‐level knowledge like business, values, personal preferences) and to very diverse technical constraints (quality, processing, storage constraints ...) and able to integrate multiple areas of expertise required interactions.
 
 ## Contact me
 
