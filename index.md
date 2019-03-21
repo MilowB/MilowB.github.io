@@ -1,6 +1,7 @@
 ---
 title: Mickaël Bettinelli
 description: A collective intelligence approach for reuse-oriented decision support in circular design and remanufacturing
+layout: default
 ---
 ## Who am I ?
 
