@@ -11,7 +11,7 @@ title: TP UML IUT1 S2
 13/03/19 - TP2 Rallye
 27/03/19 - TP2 Rallye
 10/04/19 - TP4 Usine Rance
-22/05/19 - TP Junit 1 & 2
+22/05/19 - TP Junit 1 (& 2)
 
 ### Groupe B
 30/01/19 - TP0 prise en main
@@ -20,4 +20,4 @@ title: TP UML IUT1 S2
 20/03/19 - TP2 Rallye
 03/04/19 - TP2 Rallye
 15/05/19 - TP4 Usine Rance
-22/05/19 - TP Junit 1 & 2
+22/05/19 - TP Junit 1 (& 2)
