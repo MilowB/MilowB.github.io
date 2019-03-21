@@ -1,5 +1,5 @@
 ---
-title: TP UML 
+title: UML 
 description: IUT1 S2
 layout: default
 ---
@@ -26,7 +26,7 @@ layout: default
 
 ### Rendus
 
-+   Chaque TP est à rendre la veille du début du suivant.
++   Chaque TP est à rendre la veille du début TP du suivant.
 +   Une archive est attendue en PJ d'un mail à l'adresse x : {mickael}, y: {bettinelli} at x.y@pm.me
 +   Le sujet du mail doit contenir le texte : "[UML]" (peu importe ce qu'il y a devant ou après)
 +   L'archive doit être nommée selon le pattern suivant : prénom1_nom1_prénom2_nom2_grpeX_tpX
