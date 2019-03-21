@@ -1,10 +1,11 @@
 ---
-title: UML 
-description: IUT1 S2
+title: UML (IUT S2)
 layout: default
 ---
 
-## Séances de TP
+## [Présentation de la thèse](index.md)
+
+## Séances de TP 
 
 ### Groupe A
 +   23/01/19 - TP0 prise en main
@@ -26,7 +27,7 @@ layout: default
 
 ### Rendus
 
-+   Chaque TP est à rendre la veille du début TP du suivant.
++   Chaque TP est à rendre au plus tard la veille du début TP du suivant.
 +   Une archive est attendue en PJ d'un mail à l'adresse x : {mickael}, y: {bettinelli} at x.y@pm.me
 +   Le sujet du mail doit contenir le texte : "[UML]" (peu importe ce qu'il y a devant ou après)
 +   L'archive doit être nommée selon le pattern suivant : prénom1_nom1_prénom2_nom2_grpeX_tpX
