@@ -1,5 +1,6 @@
 ---
-title: TP UML IUT1 S2
+title: TP UML 
+description: IUT1 S2
 ---
 
 ## Séances de TP
