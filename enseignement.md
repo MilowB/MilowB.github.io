@@ -5,7 +5,9 @@ layout: default
 
 ## [Présentation de la thèse](index.md)
 
-## Séances de TP 
+## IUT Informatique UGA
+
+Chargé de TP en UML pour des étudiants de S2.
 
 ### Groupe A
 +   23/01/19 - TP0 prise en main
