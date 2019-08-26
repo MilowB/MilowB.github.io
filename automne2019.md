@@ -5,6 +5,7 @@
 ### Consignes de rendu
 
 +   Créer un dépôt sur Gitlab pour stocker tous vos TPs de C#.
++   Ajouter Mickael Bettinelli en membre du dépôt avec l'accès Developper.
 +   Pour chaque TP, créer un nouveau dossier au nom du TP dans lequel les fichiers associés seront stockés.
 +   Envoyer l'adresse du dépôt à l'adresse x : {mickael}, y : {bettinelli} at x.y@lcis.grenoble-inp.fr
 +   Chaque TP est à push sur ce dépôt au plus tard la veille du début du TP suivant.
@@ -15,6 +16,7 @@
 ### Consignes de rendu
 
 +   Créer un dépôt sur Gitlab pour stocker tous vos TPs de PHP.
++   Ajouter Mickael Bettinelli en membre du dépôt avec l'accès Developper.
 +   Pour chaque TP, créer un nouveau dossier au nom du TP dans lequel les fichiers associés seront stockés.
 +   Envoyer l'adresse du dépôt à l'adresse x : {mickael}, y : {bettinelli} at x.y@lcis.grenoble-inp.fr
 +   Chaque TP est à push sur ce dépôt au plus tard la veille du début du TP suivant.
