@@ -32,10 +32,13 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 ## Teaching (University Grenoble Alpes)
 
-Spring 2020 - IUT Computer science department - TP UML (Semester 2)
-Autumn 2019 - IUT Computer science department - TP PHP (Semester 3)
-Autumn 2019 - IUT Computer science department - TP C# (Semester 3)
-Spring 2019 - IUT Computer science department - TP UML (Semester 2)
+- Spring 2020 - IUT Computer science department - TP UML (Semester 2)
+
+- Autumn 2019 - IUT Computer science department - TP PHP (Semester 3)
+
+- Autumn 2019 - IUT Computer science department - TP C# (Semester 3)
+
+- Spring 2019 - IUT Computer science department - TP UML (Semester 2)
 
 ## Contact me
 
