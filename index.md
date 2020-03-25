@@ -19,20 +19,26 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 ### 2020
 
-..* Mickaël Bettinelli, Michel Occello, Damien Genthial, Daniel Brissaud, 2020. A Decision Support Framework for Remanufacturing of Highly Variable Products Using a Collective Intelligence Approach. Procedia CIRP - 27th CIRP Life Cycle Engineering (LCE) Conference.
+- Mickaël Bettinelli, Michel Occello, Damien Genthial, Daniel Brissaud, 2020. A Decision Support Framework for Remanufacturing of Highly Variable Products Using a Collective Intelligence Approach. Procedia CIRP - 27th CIRP Life Cycle Engineering (LCE) Conference.
 
-..* Mickaël Bettinelli, Damien Genthial, Michel Occello, 2020. Cohesion as a tool for maintaining the functional integrity of a multi-agent system, ICAART.
+- Mickaël Bettinelli, Damien Genthial, Michel Occello, 2020. Cohesion as a tool for maintaining the functional integrity of a multi-agent system, ICAART.
 
 ### 2019
 
-..* Fabien Dubois, Akash Basia, Asiye Kurt, Mickaël Bettinelli, Pu Zheng, Vincent Jourdain, Kévin Guelle 2019. Production of the future to support circular economy, ICCAD.
+- Fabien Dubois, Akash Basia, Asiye Kurt, Mickaël Bettinelli, Pu Zheng, Vincent Jourdain, Kévin Guelle 2019. Production of the future to support circular economy, ICCAD.
 
-..* Mickaël Bettinelli, Damien Genthial, Michel Occello, 2019. La cohésion comme outil pour le maintien de l'intégrité fonctionnelle d'un système multi-agents, JFSMA. 
+- Mickaël Bettinelli, Damien Genthial, Michel Occello, 2019. La cohésion comme outil pour le maintien de l'intégrité fonctionnelle d'un système multi-agents, JFSMA. 
 
 
-## [Teaching](enseignement.md)
+## Teaching (University Grenoble Alpes)
+
+Spring 2020 - IUT Computer science department - TP UML (Semester 2)
+Autumn 2019 - IUT Computer science department - TP PHP (Semester 3)
+Autumn 2019 - IUT Computer science department - TP C# (Semester 3)
+Spring 2019 - IUT Computer science department - TP UML (Semester 2)
 
 ## Contact me
 
 [Github](https://github.com/MilowB)
 [Linkedin](https://www.linkedin.com/in/micka%C3%ABl-bettinelli-a4426198/)
+[Researchgate](https://www.researchgate.net/profile/Mickael_Bettinelli)
