@@ -2,32 +2,29 @@
 
 Vous trouverez ici les sujets des TPs pour le module de base du codage de la Licence professionnelle [CASIR(http://formations.univ-grenoble-alpes.fr/fr/catalogue/licence-professionnelle-DP/sciences-technologies-sante-STS/licence-professionnelle-metiers-de-l-informatique-conception-developpement-et-tests-de-logiciels-valence-program-licence-professionnelle-metiers-de-l-informatique-conception-developpement-et-tests-de-logiciels-casir-valence/parcours-codage-d-applications-et-de-systemes-informatiques-repartis-casir-valence-subprogram-parcours-codage-d-applications-et-de-systemes-informatiques-repartis-casir.html).
 
+##### [Slides du cours](Documents/CoursPython.pdf)
 
 ### TP1
 
-+   [Sujet]()
-+   [Outil de correction]()
-
++   [Sujet](Documents/TP1.zip)
++   A rendre pour le 02/10/2020 à 8h00 au plus tard.
 
 ### TP2
 
-+   [Sujet]()
-+   [Outil de correction]()
++   [Sujet](Documents/TP2.zip)
++   A rendre pour le 02/10/2020 à 8h00 au plus tard.
 
-### TP3
-
-+   [Sujet]()
-+   [Outil de correction]()
-
-### TP4
+### TP3 (Pas encore en ligne)
 
 +   [Sujet]()
-+   [Outil de correction]()
 
-### Projet
+### TP4 (Pas encore en ligne)
 
 +   [Sujet]()
-+   [Outil de correction]()
+
+### Projet (Pas encore en ligne)
+
++   [Sujet]()
 
 
 ### Ressources
@@ -35,3 +32,10 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 +   [Tutoriels TutorialsPoint](https://www.tutorialspoint.com/python/index.htm)
 +   [Cours OpenClassrooms](https://openclassrooms.com/fr/courses/235344-apprenez-a-programmer-en-python)
 +   [Forum StackOverflow en cas de problème](https://stackoverflow.com/)
+
+### Me contacter
+
++ Besoin d'aide ? Envoyez moi un mail à : mickael.bettinelli at lcis.grenoble-inp dot fr
++ Si besoin d'une réponse rapide, je suis souvent disponible sur discord au pseudo : milow@1026
+
+

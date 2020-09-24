@@ -1,6 +1,6 @@
 ## Licence CASIR - Université Grenoble Alpes
 
-Cette page est rédigée dans le cadre de la préparation du module Base du Codage de la Licence CASIR (L3 Professionnelle) en tant que portfolio pour le label RES. Ce module est de 12h (15.6h eqTD) et à lieu lors du premier semestre de l'année scolaire 2020/2021. Ce document me sert de support de réflexion pour la préparation de ce module.
+Cette page est rédigée dans le cadre de la préparation du module Base du Codage (la partie sur Python) de la Licence CASIR (L3 Professionnelle) en tant que portfolio pour le label RES. Ce module est d'un peu plus de 30h et est séparé en deux parties, une préparée par un collègue qui présente Java aux étudiant, et la mienne de 12h (15.6h eqTD) présentant le Python. Elle à lieu lors du premier semestre de l'année scolaire 2020/2021. Ce document me sert de support de réflexion pour la préparation de ce module.
 
 Bien que j'ai eu l'occasion de suivre des étudiants dans des TPs et TDs dans d'autres modules, je n'ai jamais préparé de cours avant celui-ci. Les sujets étaient préparés par des collègues et je m'occupais du suivi de mes groupes et de la correction de leur travail. Ce travail est donc un peu particulier puisque je dois cette fois préparer des cours, des sujets de TP et un système d'évaluation.
 

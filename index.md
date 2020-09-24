@@ -19,15 +19,17 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 ### 2020
 
-- Mickaël Bettinelli, Michel Occello, Damien Genthial, Daniel Brissaud, 2020. A Decision Support Framework for Remanufacturing of Highly Variable Products Using a Collective Intelligence Approach. Procedia CIRP - 27th CIRP Life Cycle Engineering (LCE) Conference.
+- Coalition Formation Problem : a Group Dynamics Inspired Swarming Method. Mickaël Bettinelli, Michel Occello, Damien Genthial, 12th International Conference on Swarm Intelligence (ANTS), 2020.
 
-- Mickaël Bettinelli, Damien Genthial, Michel Occello, 2020. Cohesion as a tool for maintaining the functional integrity of a multi-agent system, ICAART.
+- A Decision Support Framework for Remanufacturing of Highly Variable Products Using a Collective Intelligence Approach. Procedia CIRP. Mickaël Bettinelli, Michel Occello, Damien Genthial, Daniel Brissaud, 27th CIRP Life Cycle Engineering (LCE) Conference, 2020.
+
+- Cohesion as a tool for maintaining the functional integrity of a multi-agent system. Mickaël Bettinelli, Damien Genthial, Michel Occello, ICAART, 2020.
 
 ### 2019
 
-- Fabien Dubois, Akash Basia, Asiye Kurt, Mickaël Bettinelli, Pu Zheng, Vincent Jourdain, Kévin Guelle 2019. Production of the future to support circular economy, ICCAD.
+- Production of the future to support circular economy. Fabien Dubois, Akash Basia, Asiye Kurt, Mickaël Bettinelli, Pu Zheng, Vincent Jourdain, Kévin Guelle, ICCAD, 2019.
 
-- Mickaël Bettinelli, Damien Genthial, Michel Occello, 2019. La cohésion comme outil pour le maintien de l'intégrité fonctionnelle d'un système multi-agents, JFSMA. 
+- La cohésion comme outil pour le maintien de l'intégrité fonctionnelle d'un système multi-agents. Mickaël Bettinelli, Damien Genthial, Michel Occello, JFSMA, 2019.
 
 
 ## Teaching (University Grenoble Alpes)
