@@ -5,7 +5,7 @@ layout: default
 
 ## You are a Casir student ?
 
-[Come on here !](tp_casir_s1_2020.html)
+[Come here !](tp_casir_s1_2020.html)
 
 ## Who am I ?
 
