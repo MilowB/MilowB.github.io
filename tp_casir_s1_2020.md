@@ -14,9 +14,10 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 +   [Sujet](Documents/TP2.zip)
 +   A rendre pour le 02/10/2020 à 8h00 au plus tard.
 
-### TP3 (Pas encore en ligne)
+### TP3
 
-+   [Sujet]()
++   [Sujet](Documents/TP3.zip)
++   A rendre pour le 09/10/2020 à 8h00 au plus tard.
 
 ### TP4 (Pas encore en ligne)
 
