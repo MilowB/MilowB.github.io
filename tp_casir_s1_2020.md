@@ -2,7 +2,7 @@
 
 Vous trouverez ici les sujets des TPs pour le module de base du codage de la Licence professionnelle [CASIR](http://formations.univ-grenoble-alpes.fr/fr/catalogue/licence-professionnelle-DP/sciences-technologies-sante-STS/licence-professionnelle-metiers-de-l-informatique-conception-developpement-et-tests-de-logiciels-valence-program-licence-professionnelle-metiers-de-l-informatique-conception-developpement-et-tests-de-logiciels-casir-valence/parcours-codage-d-applications-et-de-systemes-informatiques-repartis-casir-valence-subprogram-parcours-codage-d-applications-et-de-systemes-informatiques-repartis-casir.html).
 
-#### [Slides du cours](Documents/CoursPython.pdf)
+#### [Slides du cours](Documents/CoursPython.pdf)=
 
 ### TP1
 
@@ -19,9 +19,10 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 +   [Sujet](Documents/TP3.zip)
 +   A rendre pour le 09/10/2020 à 8h00 au plus tard.
 
-### TP4 (Pas encore en ligne)
+### TP4
 
-+   [Sujet]()
++   [Sujet](Documents/TP4.zip)
++   A rendre pour le 16/10/2020 à 8h00 au plus tard.
 
 ### Projet (Pas encore en ligne)
 
