@@ -29,9 +29,12 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 
 +   [Sujet](Documents/TP5.zip)
 
-### TP Bonus (bientôt en ligne)
+### TP Bonus (uniquement si vous avez fait tout le reste, ça devient complexe)
 
-+   [Sujet]()
+A faire en autodidacte !
+
++   [Sujet](Documents/TPBonusAG.zip)
++   Ressource : [Un cours sur les algoritmes génétique](https://khayyam.developpez.com/articles/algo/genetic/)
 
 
 ### Ressources
