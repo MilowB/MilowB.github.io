@@ -25,9 +25,10 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 +   A rendre pour le 16/10/2020 à 8h00 au plus tard.
 
 
-### Mini projet
+### TP Tortue
 
 +   [Sujet](Documents/TP5.zip)
++   A rendre pour le 01/11/2020 à 23h59 au plus tard.
 
 ### TP Bonus (uniquement si vous avez fait tout le reste, ça devient complexe)
 
@@ -35,6 +36,7 @@ A faire en autodidacte !
 
 +   [Sujet](Documents/TPBonusAG.zip)
 +   Ressource : [Un cours sur les algoritmes génétique](https://khayyam.developpez.com/articles/algo/genetic/)
++   L'exécutable pour déterminer la fitness de vos individus se toruve dans l'archive.
 
 
 ### Ressources
