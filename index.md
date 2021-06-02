@@ -9,7 +9,7 @@ layout: default
 
 ## Who am I ?
 
-I'm Mickaël Bettinelli, second year Ph.D student in the Grenoble-Alpes University. I'm working at the LCIS laboratory in the [Macsy-Cosy](http://lcis.grenoble-inp.fr/themes/modelisation-commande-et-supervision-des-systemes-complexes-ouverts-et-decentralises/) team.
+I'm Mickaël Bettinelli, third year Ph.D student in the Grenoble-Alpes University. I'm working at the LCIS laboratory in the [Macsy-Cosy](http://lcis.grenoble-inp.fr/themes/modelisation-commande-et-supervision-des-systemes-complexes-ouverts-et-decentralises/) team.
 
 
 ## Thesis description
@@ -20,6 +20,10 @@ Circular Economy Creating circular industrial systems able to transform post‐u
 The aim of this thesis is to study a multi‐agent model for a re‐purposing‐oriented manufacturing system. Taking benefit of the collective intelligence capabilities, it will be a decision making support system able to integrate variability of inputs availability and uncertainty (openness), highly adaptation to market, humans (high‐level knowledge like business, values, personal preferences) and to very diverse technical constraints (quality, processing, storage constraints ...) and able to integrate multiple areas of expertise required interactions.
 
 ## Publications
+
+### 2021
+
+- ABSG : un modèle d'agent socialement inspiré pour la formation de coalitions. Mickaël Bettinelli, Michel Occello, Damien Genthial, JFSMA, 2021.
 
 ### 2020
 
@@ -35,6 +39,9 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 - La cohésion comme outil pour le maintien de l'intégrité fonctionnelle d'un système multi-agents. Mickaël Bettinelli, Damien Genthial, Michel Occello, JFSMA, 2019.
 
+## Communications
+
+[Moins de déchets grâce aux systèmes multi-agents](https://www.lemonde.fr/blog/binaire/2021/05/04/moins-de-dechets-grace-aux-systemes-multi-agents/) dans le blog Binaire, 2021
 
 ## Teaching (University Grenoble Alpes)
 
