@@ -41,9 +41,15 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 ## Communications
 
-[Moins de déchets grâce aux systèmes multi-agents](https://www.lemonde.fr/blog/binaire/2021/05/04/moins-de-dechets-grace-aux-systemes-multi-agents/) dans le blog Binaire, 2021
+[Moins de déchets grâce aux systèmes multi-agents](https://www.lemonde.fr/blog/binaire/2021/05/04/moins-de-dechets-grace-aux-systemes-multi-agents/) in Binaire blog, 2021
 
 ## Teaching (University Grenoble Alpes)
+
+- Spring 2021 - IUT Computer science department - TP UML (Semester 2)
+
+- Autumn 2020 - IUT Computer science department - TP C# (Semester 3)
+
+- Autumn 2020 - Casir bachelor - Introduction to Python (Semester 1)
 
 - Spring 2020 - IUT Computer science department - TP UML (Semester 2)
 
@@ -56,5 +62,7 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 ## Contact me
 
 [Github](https://github.com/MilowB)
+
 [Linkedin](https://www.linkedin.com/in/micka%C3%ABl-bettinelli-a4426198/)
+
 [Researchgate](https://www.researchgate.net/profile/Mickael_Bettinelli)
