@@ -59,6 +59,12 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 - Spring 2019 - IUT Computer science department - TP UML (Semester 2)
 
+## Reviewer
+
+- Revue Ouverte d’Intelligence Artificielle (ROIA) : 2021
+- International Conference on Agents and Artificial Intelligence (ICAART) : 2020
+- Journées Francophones sur les Systèmes Multi-Agents (JFSMA) : 2019, 2020, 2021
+
 ## Contact me
 
 [Github](https://github.com/MilowB)
