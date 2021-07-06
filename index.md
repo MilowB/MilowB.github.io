@@ -3,11 +3,11 @@ title: Mickael Bettinelli
 layout: default
 ---
 
-## You are a Casir student ?
+## Are you a Casir student?
 
-[Come here !](tp_casir_s1_2020.html)
+[Come here!](tp_casir_s1_2020.html) (The link will be updated during the summer!)
 
-## Who am I ?
+## Who am I?
 
 I'm Mickaël Bettinelli, third year Ph.D student in the Grenoble-Alpes University. I'm working at the LCIS laboratory in the [Macsy-Cosy](http://lcis.grenoble-inp.fr/themes/modelisation-commande-et-supervision-des-systemes-complexes-ouverts-et-decentralises/) team.
 
@@ -23,7 +23,7 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 ### 2021
 
-- ABSG : un modèle d'agent socialement inspiré pour la formation de coalitions. Mickaël Bettinelli, Michel Occello, Damien Genthial, JFSMA, 2021.
+- ABSG : un modèle d'agent socialement inspiré pour la formation de coalitions. Mickaël Bettinelli, Michel Occello, Damien Genthial, JFSMA, 2021. [Best Paper Award!](prix-JFSMA-AFIA-2021.pdf)
 
 ### 2020
 
