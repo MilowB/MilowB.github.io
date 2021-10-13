@@ -4,6 +4,8 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 
 #### [Slides du cours](Documents/CoursPython.pdf)
 
+Les TPs sont à réaliser seul ou en binôme.
+
 ### TP1 Structures de contrôle (2h)
 
 +   Séance du 14/10/2021
