@@ -60,7 +60,7 @@ A faire en autodidacte !
 
 +   [Sujet](Documents/TPBonusAG.zip)
 +   Ressource : [Un cours sur les algoritmes génétique](https://khayyam.developpez.com/articles/algo/genetic/)
-+   L'exécutable pour déterminer la fitness de vos individus se toruve dans l'archive.
++   L'exécutable pour déterminer la fitness de vos individus se trouve dans l'archive.
 
 
 ### Ressources
