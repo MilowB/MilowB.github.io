@@ -38,14 +38,14 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 
 +   Séance du 17/11/2021
 +   [Lien à venir]()
-+   A rendre pour le 23/11/2020 à 23h59 au plus tard.
++   A rendre pour le 23/11/2020 au plus tard.
 
 
 ### TP Web scraping (2h)
 
 +   Séance du 17/11/2021
 +   [Lien à venir]()
-+   A rendre pour le 23/11/2020 à 23h59 au plus tard.
++   A rendre pour le 23/11/2020 au plus tard.
 
 ### TP Recherche automatisée d'appartement (8h)
 
