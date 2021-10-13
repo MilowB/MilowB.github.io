@@ -4,31 +4,55 @@ Vous trouverez ici les sujets des TPs pour le module de base du codage de la Lic
 
 #### [Slides du cours](Documents/CoursPython.pdf)
 
-### TP1
+### TP1 Structures de contrôle (2h)
 
++   Séance du 14/10/2021
 +   [Sujet](Documents/TP1.zip)
-+   A rendre pour le 02/10/2020 à 8h00 au plus tard.
++   A rendre pour le 20/10/2021 au plus tard.
 
-### TP2
+### TP2 Structures de données (2h)
 
++   Séance du 14/10/2021
 +   [Sujet](Documents/TP2.zip)
-+   A rendre pour le 02/10/2020 à 8h00 au plus tard.
++   A rendre pour le 20/10/2021 au plus tard.
 
-### TP3
+### TP3 Structures de données avancées (2h)
 
++   Séance du 21/10/2021
 +   [Sujet](Documents/TP3.zip)
-+   A rendre pour le 09/10/2020 à 8h00 au plus tard.
++   A rendre pour le 27/10/2021 au plus tard.
 
-### TP4
+### TP4 Les classes (2h)
 
++   Séance du 21/10/2021
 +   [Sujet](Documents/TP4/TP4_Casir_2020.pdf)
-+   A rendre pour le 16/10/2020 à 8h00 au plus tard.
++   A rendre pour le 27/10/2021 au plus tard.
 
+### TP Tortue (4h)
 
-### TP Tortue
-
++   Séance du 28/10/2021
 +   [Sujet](Documents/TP5.zip)
-+   A rendre pour le 01/11/2020 à 23h59 au plus tard.
++   A rendre pour le 16/11/2021 au plus tard.
+
+### TP Parsing (2h)
+
++   Séance du 17/11/2021
++   [Lien à venir]()
++   A rendre pour le 23/11/2020 à 23h59 au plus tard.
+
+
+### TP Web scraping (2h)
+
++   Séance du 17/11/2021
++   [Lien à venir]()
++   A rendre pour le 23/11/2020 à 23h59 au plus tard.
+
+### TP Recherche automatisée d'appartement (8h)
+
++   Séances du 24 & 25/11/2021
++   [Lien à venir]()
++   A rendre le plus tôt possible
+
 
 ### TP Bonus (uniquement si vous avez fait tout le reste, ça devient complexe)
 
