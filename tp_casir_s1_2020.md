@@ -21,7 +21,7 @@ Les TPs sont à réaliser seul ou en binôme.
 ### TP3 Structures de données avancées (2h)
 
 +   Séance du 21/10/2021
-+   [Sujet](Documents/TP.zip)
++   [Sujet](Documents/TP3.zip)
 +   A rendre pour le 27/10/2021 au plus tard.
 
 ### TP4 Les classes (2h)
