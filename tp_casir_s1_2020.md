@@ -46,7 +46,7 @@ Les TPs sont à réaliser seul ou en binôme.
 ### TP Web scraping (2h)
 
 +   Séance du 17/11/2021
-+   [Sujet](Documents/TP2_Casir_2021.pdf)
++   [Sujet](Documents/TP7_Casir_2021.pdf)
 +   A rendre pour le 23/11/2021 au plus tard.
 
 ### TP Recherche automatisée d'appartement (8h)
