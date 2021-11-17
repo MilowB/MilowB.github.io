@@ -52,7 +52,7 @@ Les TPs sont à réaliser seul ou en binôme.
 ### TP Recherche automatisée d'appartement (8h)
 
 +   Séances du 24 & 25/11/2021
-+   [Lien à venir]()
++   [Sujet](Documents/TP8_Casir_2021.pdf)
 +   A rendre le plus tôt possible
 
 
