@@ -53,7 +53,7 @@ Les TPs sont à réaliser seul ou en binôme.
 
 +   Séances du 24 & 25/11/2021
 +   [Sujet](Documents/TP8_Casir_2021.pdf)
-+   A rendre le plus tôt possible
++   A rendre avant le 5/12/2021
 
 
 ### TP Bonus (uniquement si vous avez fait tout le reste, ça devient complexe)
