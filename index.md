@@ -9,7 +9,7 @@ layout: default
 
 ## Who am I?
 
-I'm Mickaël Bettinelli, third year Ph.D student in the Grenoble-Alpes University. I'm working at the LCIS laboratory in the [Macsy-Cosy](http://lcis.grenoble-inp.fr/themes/modelisation-commande-et-supervision-des-systemes-complexes-ouverts-et-decentralises/) team.
+Mickaël Bettinelli, PhD, postdoctoral researcher at the university of Oulu where I work in the Center for Ubiquitous Computing.
 
 
 ## Thesis description
@@ -44,6 +44,8 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 [Moins de déchets grâce aux systèmes multi-agents](https://www.lemonde.fr/blog/binaire/2021/05/04/moins-de-dechets-grace-aux-systemes-multi-agents/) in Binaire blog, 2021
 
 ## Teaching (University Grenoble Alpes)
+
+- Spring 2022 - University of Oulu - Lecturer for the Distributed System course for master students
 
 - Spring 2021 - IUT Computer science department - TP UML (Semester 2)
 
