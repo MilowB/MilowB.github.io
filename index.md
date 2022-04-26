@@ -54,9 +54,9 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 - Spring 2019 - IUT Computer science department - TP UML (Semester 2)
 
-### Are you a Casir student?
+### Are you a CASIR student?
 
-[Come here!](tp_casir_s1_2020.html)
+[Here the slides and exercises](tp_casir_s1_2020.html)
 
 ## Reviewing
 
