@@ -3,7 +3,7 @@ title: Mickael Bettinelli
 layout: default
 ---
 
-Postdoctoral researcher, Mickaël Bettinelli, PhD in computer science (distributed artificial intelligence), 2021, Master of computer science (artificial intelligence), 2018 is working at the university of Oulu in the Center for Ubiquitous Computing. He obtained his PhD at the university Grenoble Alpes working on a collective intelligence approach for the Circular project (IDEX funding). Mickaël Bettinelli is particularly interested in distributed intelligence, complex systems, the emergence of collective behaviour and the resilience of distributed systems. His current research is about edge intelligence and its application to the FRACTAL project (EU Horizon 2020 programme) where he works on the design of an edge node able to adapt its behavior to uncertain environments.
+Postdoctoral researcher, Mickaël Bettinelli, PhD in computer science (distributed artificial intelligence), 2021, Master of computer science (artificial intelligence), 2018, is working at the university of Oulu in the Center for Ubiquitous Computing. He obtained his PhD at the university Grenoble Alpes working on a collective intelligence approach for the Circular project (IDEX funding). Mickaël Bettinelli is particularly interested in distributed intelligence, complex systems, the emergence of collective behaviour and the resilience of distributed systems. His current research is about edge intelligence and its application to the FRACTAL project (EU Horizon 2020 programme) where he works on the design of an edge node able to adapt its behavior to uncertain environments.
 
 ## Thesis description
 
