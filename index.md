@@ -3,10 +3,6 @@ title: Mickael Bettinelli
 layout: default
 ---
 
-## Are you a Casir student?
-
-[Come here!](tp_casir_s1_2020.html)
-
 ## Who am I?
 
 Mickaël Bettinelli, PhD, postdoctoral researcher at the university of Oulu where I work in the Center for Ubiquitous Computing.
@@ -60,6 +56,10 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 - Autumn 2019 - IUT Computer science department - TP C# (Semester 3)
 
 - Spring 2019 - IUT Computer science department - TP UML (Semester 2)
+
+### Are you a Casir student?
+
+[Come here!](tp_casir_s1_2020.html)
 
 ## Reviewing
 
