@@ -55,10 +55,6 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 - Spring 2019 - University Grenoble Alpes - IUT Computer science department - Conception d'application avec UML - chargé de TD (1st year students), 21h
 
-### Are you a CASIR student?
-
-[Here the slides and exercises](tp_casir_s1_2020.html)
-
 ## Master thesis supervision
 
 2022 - Aleksi Lahti, "no title for now, work in progress". Degree program of Computer Science, University of Oulu (1st supervisor)
@@ -72,6 +68,10 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 - Revue Ouverte d’Intelligence Artificielle (ROIA) : 2021
 - International Conference on Agents and Artificial Intelligence (ICAART) : 2020
 - Journées Francophones sur les Systèmes Multi-Agents (JFSMA) : 2019, 2020, 2021
+
+### Are you a CASIR student?
+
+[Here the slides and exercises](tp_casir_s1_2020.html)
 
 ## Contact me
 
