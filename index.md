@@ -16,6 +16,8 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 ### 2021
 
+- ABSG: a Socially Inspired Coalition Formation Agent Model. Mickaël Bettinelli, Michel Occello, Damien Genthial, IEEE International Conference on Systems, Man, and Cybernetics, 2021.
+- 
 - ABSG : un modèle d'agent socialement inspiré pour la formation de coalitions. Mickaël Bettinelli, Michel Occello, Damien Genthial, JFSMA, 2021. [Best Paper Award!](prix-JFSMA-AFIA-2021.pdf)
 
 ### 2020
