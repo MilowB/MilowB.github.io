@@ -32,9 +32,6 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 - La cohésion comme outil pour le maintien de l'intégrité fonctionnelle d'un système multi-agents. Mickaël Bettinelli, Damien Genthial, Michel Occello, JFSMA, 2019.
 
-## Communications
-
-[Moins de déchets grâce aux systèmes multi-agents](https://www.lemonde.fr/blog/binaire/2021/05/04/moins-de-dechets-grace-aux-systemes-multi-agents/) in Binaire blog, 2021
 
 ## Teaching (172h)
 
@@ -63,6 +60,10 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 ## Master thesis supervision
 
 2022 - Aleksi Lahti, "no title for now, work in progress". Degree program of Computer Science, University of Oulu (1st supervisor)
+
+## Communications
+
+[Moins de déchets grâce aux systèmes multi-agents](https://www.lemonde.fr/blog/binaire/2021/05/04/moins-de-dechets-grace-aux-systemes-multi-agents/) in Binaire blog, 2021
 
 ## Reviewing
 
