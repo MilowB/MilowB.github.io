@@ -1,5 +1,5 @@
 ---
-title: Mickael Bettinelli
+title: Mickaël Bettinelli
 layout: default
 ---
 
