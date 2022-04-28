@@ -36,23 +36,25 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 [Moins de déchets grâce aux systèmes multi-agents](https://www.lemonde.fr/blog/binaire/2021/05/04/moins-de-dechets-grace-aux-systemes-multi-agents/) in Binaire blog, 2021
 
-## Teaching (University Grenoble Alpes)
+## Teaching (172h)
 
-- Spring 2022 - University of Oulu - Lecturer for the Distributed System course for master students
+- Spring 2022 - University of Oulu - Distributed System course - Course leader & lecturer (master students), 22h
 
-- Spring 2021 - IUT Computer science department - TP UML (Semester 2)
+- Autumn 2021 - University Grenoble Alpes - Casir bachelor - Base du codage en Python - Course leader & lecturer (3rd year students), 24h
 
-- Autumn 2020 - IUT Computer science department - TP C# (Semester 3)
+- Spring 2021 - University Grenoble Alpes - IUT Computer science department - Conception d'application avec UML - chargé de TD (1st year students), 21h
 
-- Autumn 2020 - Casir bachelor - Introduction to Python (Semester 1)
+- Autumn 2020 - University Grenoble Alpes - IUT Computer science department - Développement d'application en C# - chargé de TP (2nd year students), 18h
 
-- Spring 2020 - IUT Computer science department - TP UML (Semester 2)
+- Autumn 2020 - University Grenoble Alpes - Casir bachelor - Base du codage en Python - Course leader & lecturer (3rd year students), 12h
 
-- Autumn 2019 - IUT Computer science department - TP PHP (Semester 3)
+- Spring 2020 - University Grenoble Alpes - IUT Computer science department - Conception d'application avec UML - chargé de TD (1st year students), 21h
 
-- Autumn 2019 - IUT Computer science department - TP C# (Semester 3)
+- Autumn 2019 - University Grenoble Alpes - IUT Computer science department - Développement d'application web en PHP - chargé de TP (2nd year students), 15h
 
-- Spring 2019 - IUT Computer science department - TP UML (Semester 2)
+- Autumn 2019 - University Grenoble Alpes - IUT Computer science department - Développement d'application en C# - chargé de TP (2nd year students), 18h
+
+- Spring 2019 - University Grenoble Alpes - IUT Computer science department - Conception d'application avec UML - chargé de TD (1st year students), 21h
 
 ### Are you a CASIR student?
 
