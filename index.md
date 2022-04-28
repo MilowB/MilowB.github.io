@@ -60,6 +60,10 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 [Here the slides and exercises](tp_casir_s1_2020.html)
 
+## Master thesis supervision
+
+2022 - Aleksi Lahti, "no title for now, work in progress". Degree program of Computer Science, University of Oulu (1st supervisor)
+
 ## Reviewing
 
 - Revue Ouverte d’Intelligence Artificielle (ROIA) : 2021
