@@ -55,9 +55,6 @@ The aim of this thesis is to study a multi‐agent model for a re‐purposing‐
 
 - Spring 2019 - University Grenoble Alpes - IUT Computer science department - Conception d'application avec UML - chargé de TD (1st year students), 21h
 
-## Master thesis supervision
-
-2022 - Aleksi Lahti, "no title for now, work in progress". Degree program of Computer Science, University of Oulu (1st supervisor)
 
 ## Communications
 
