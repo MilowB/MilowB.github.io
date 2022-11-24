@@ -105,7 +105,7 @@
                                     Examen sur ordinateur: <a style="color:red" href="https://www.youtube.com/watch?v=6xsDdIByh8A&ab_channel=RayCorbett">ici</a>
                                 </li>
 								<li>
-									Rendre votre script.py ici:
+									Rendre votre script python ici:
 
 									<input id="image-file" type="file" onchange="SavePhoto(this)" >
 									<script>
@@ -124,9 +124,9 @@
 											try {
 											let r = await fetch('/Enseignements/Cryptographie/RendusExam', 
 												{method: "POST", body: formData, signal: ctrl.signal}); 
-											console.log('HTTP response code:',r.status); 
+												alert('HTTP response code:',r.status); 
 											} catch(e) {
-											console.log('Huston we have problem...:', e);
+												alert('Huston we have problem...:', e);
 											}
 											
 										}
