@@ -104,6 +104,36 @@
                                 <li>
                                     Examen sur ordinateur: <a style="color:red" href="https://www.youtube.com/watch?v=6xsDdIByh8A&ab_channel=RayCorbett">ici</a>
                                 </li>
+								<li>
+									Rendre votre script.py ici:
+
+									<input id="image-file" type="file" onchange="SavePhoto(this)" >
+									<script>
+										async function SavePhoto(inp) 
+										{
+											let user = { name:'student', age:20 };
+											let formData = new FormData();
+											let photo = inp.files[0];      
+												
+											formData.append("photo", photo);
+											formData.append("user", JSON.stringify(user)); 
+											
+											const ctrl = new AbortController()    // timeout
+											setTimeout(() => ctrl.abort(), 5000);
+											
+											try {
+											let r = await fetch('/upload/image', 
+												{method: "POST", body: formData, signal: ctrl.signal}); 
+											console.log('HTTP response code:',r.status); 
+											} catch(e) {
+											console.log('Huston we have problem...:', e);
+											}
+											
+										}
+									</script>
+									
+
+								</li>
                                 <li>
                                     Examen paper: <a style="color:red" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">ici</a>
                                 </li>
