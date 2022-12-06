@@ -102,40 +102,13 @@
                             <h2 class="major">Examens</h2>
                             <ul>
                                 <li>
-                                    Examen sur ordinateur: <a style="color:red" href="https://www.youtube.com/watch?v=6xsDdIByh8A&ab_channel=RayCorbett">ici</a>
+                                    Sujet de l'examen sur ordinateur: <a style="color:red" href="https://www.youtube.com/watch?v=6xsDdIByh8A&ab_channel=RayCorbett">ici</a>
                                 </li>
-								<li>
-									Rendre votre script python ici:
-
-									<input id="image-file" type="file" onchange="SavePhoto(this)" >
-									<script>
-										async function SavePhoto(inp) 
-										{
-											let user = { name:'student', age:20 };
-											let formData = new FormData();
-											let photo = inp.files[0];      
-												
-											formData.append("photo", photo);
-											formData.append("user", JSON.stringify(user)); 
-											
-											const ctrl = new AbortController()    // timeout
-											setTimeout(() => ctrl.abort(), 5000);
-											
-											try {
-											let r = await fetch('/Enseignements/Cryptographie/RendusExam', 
-												{method: "POST", body: formData, signal: ctrl.signal}); 
-												alert('HTTP response code:',r.status); 
-											} catch(e) {
-												alert('Huston we have problem...:', e);
-											}
-											
-										}
-									</script>
-									
-
-								</li>
+				<li>
+				    Rendre le travail de l'examen sur ordinateur au lien suivant (juste le script.py): <a style="color:red" href="https://www.youtube.com/watch?v=6xsDdIByh8A&ab_channel=RayCorbett">ici</a>
+			        </li>
                                 <li>
-                                    Examen paper: <a style="color:red" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">ici</a>
+                                    Sujet de l'examen papier: <a style="color:red" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">ici</a>
                                 </li>
                             </ul>
                         </article>
