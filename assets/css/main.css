@@ -1325,6 +1325,8 @@ input, select, textarea {
 			line-height: 5.5rem;
 			border: solid 1px #ffffff;
 			border-radius: 100%;
+			backdrop-filter: blur(2px);
+			background-color: rgba(17, 17, 17, 0.6);
 		}
 
 			#header .logo .icon:before {
