@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	</head>
 	<body class="is-preload br309">
 
@@ -35,10 +36,11 @@
 					</div>
 					<nav>
 						<ul>
-							<li><a href="#intro">Intro</a></li>
+							<li><a href="#intro">Présentation</a></li>
 							<li><a href="#CM">CM</a></li>
 							<li><a href="#TD">TD</a></li>
 							<li><a href="#TP">TP</a></li>
+							<li><a href="#Depot">Zone de Dépôts</a></li>
 							<li><a href="#Examen">Examens</a></li>
 						</ul>
 					</nav>
@@ -50,11 +52,26 @@
 					<!-- Intro -->
 					<article id="intro">
 						<h2 class="major">Intro</h2>
+							<p>
+							Bienvenue dans le merveilleux monde de la cryptographie ! 
 							Vous trouverez ici des ressources concernant le cours de R3.09.
-						<p></p>
+							Les syllabus du cours sont accessibles à ce <a href="Enseignements/R309/syllabus.zip">lien</a>.
+							Vous y trouverez les connaissances à acquérir durant ce module. 
+							En cas de doute, n'hésitez pas à me contacter et poser des questions.
+							Vous pouvez également aller voir les vidéos que je réalise sur <a href="https://www.youtube.com/watch?v=xk_t557dJP4&list=PL0snlqxAGPDCE9tGaUNWcraVJKxfDYDZa">youtube</a> en complément du cours que nous avons ensemble.
+							En espérant que ce cours vous plaise autant qu'à moi :-)
+							</p>
 						<h2 class="major">Feedback</h2>
-							Vous pouvez fournir un retour sur ce cours au lien suivant: <a href="https://forms.gle/BCB3teWHDMjRQ1mU8">ici</a>
-						<p></p>				
+
+							<p id="print-feedback"></p>	
+							<script>
+								var currentDate = new Date();
+								if(currentDate.getMonth() >= 10 && currentDate.getMonth() <= 11)
+									$('#print-feedback').html("Vous pouvez fournir un retour anonyme sur ce cours au lien suivant: <a href='https://forms.gle/BCB3teWHDMjRQ1mU8'>ici</a>");
+								else
+									$('#print-feedback').text("Vous pourrez fournir un retour à ce cours à la fin du module. Je prendrai en compte vos avis pour l'améliorer l'année prochaine !");
+
+							</script>
 					</article>
 
 					<!-- Interests -->
@@ -92,6 +109,13 @@
 								TD#2 correction (par Gérard Laissard): <a style="color:red" href="Enseignements/Cryptographie/TD2_correction.pdf">ici</a>
 							</li>
 						</ul>
+						<h2 class="major">Exercices en plus</h2>
+						Une sélection d'exercices (non corrigés) à faire à la maison pour renforcer votre compréhension. Ceux-ci sont triés par ordre croissant de difficulté.
+						<ul>
+							<li>
+								Les exponentiations modulaires: <a style="color:red" href="Enseignements/R309/expo_modulaires.pdf">ici</a>
+							</li>
+						</ul>
 					</article>
 
 					<!-- About -->
@@ -117,16 +141,26 @@
 						<h2 class="major">Examen papier</h2>
 							<ul>
 								<li>
-									<!--Le sujet de rattrapage: <a style="color:red" href="Enseignements/Cryptographie/template2.py">ici</a>-->
+									<!--Le sujet de rattrapage: <a style="color:red" href="Enseignements/Cryptographie/template2">ici</a>-->
 								</li>
 							</ul>
 					<h2 class="major">TP noté</h2>
 						<ul>
 							<li>
-								Le sujet: <a style="color:red" href="Enseignements/Cryptographie/sujetExam2023.zip">ici</a>
+								<!--Le sujet: <a style="color:red" href="Enseignements/Cryptographie/sujetExam2023">ici</a>-->
 							</li>
 						</ul>
 					</article>
+
+					<article id="Depot">
+						<h2 class="major">Dépôt du TP noté</h2>
+							<ul>
+								<li>
+									Lien à venir
+								</li>
+							</ul>
+					</article>
+
 				</div>
 				<!-- Footer -->
 					<footer id="footer">
