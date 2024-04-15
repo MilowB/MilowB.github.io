@@ -37,6 +37,34 @@ ol, ul {
 	list-style: none;
 }
 
+.notification-top-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+	background: #1ABC9C;
+	text-align: center;
+	color: #FFFFFF;
+	font-family: sans-serif;
+	font-weight: lighter;
+	font-size: 14px;
+  }
+  .notification-top-bar p {
+	padding: 0;
+	margin: 0;
+  }
+  .notification-top-bar p a {
+	padding: 5px 10px;
+	border-radius: 3px;
+	background: #FFF;
+	color: #1ABC9C;
+	font-weight: bold;
+	text-decoration: none;
+  }
+
+
 blockquote, q {
 	quotes: none;
 }
@@ -1140,9 +1168,12 @@ input, select, textarea {
 			-ms-transition-delay: 0.75s;
 			transition-delay: 0.75s;
 			background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/overlay.png");
-			background-size: auto, 256px 256px;
-			background-position: center, center;
-			background-repeat: no-repeat, repeat;
+			background-size: auto,
+ 256px 256px;
+			background-position: center,
+ center;
+			background-repeat: no-repeat,
+ repeat;
 			z-index: 2;
 		}
 
@@ -1155,12 +1186,13 @@ input, select, textarea {
 			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/bg.jpg");
+			background-image: url("../../images/br309.jpg");
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
 			z-index: 1;
 		}
+
 
 		body.is-article-visible #bg:after {
 			-moz-transform: scale(1.0825);
@@ -1319,6 +1351,8 @@ input, select, textarea {
 				padding: 3rem 2rem;
 				max-height: 40rem;
 				overflow: hidden;
+				background-color: rgba(17, 17, 17, 0.6);
+				backdrop-filter: blur(2px);
 			}
 
 				#header .content .inner > :last-child {
@@ -1345,8 +1379,11 @@ input, select, textarea {
 		}
 
 			#header nav ul li {
+				margin-left: -1px;				
 				padding-left: 0;
 				border-left: solid 1px #ffffff;
+				border-right: solid 1px #ffffff;
+				backdrop-filter: blur(2px);
 			}
 
 				#header nav ul li:first-child {
@@ -1362,7 +1399,9 @@ input, select, textarea {
 					text-transform: uppercase;
 					letter-spacing: 0.2rem;
 					font-size: 0.8rem;
+					font-weight: bold;
 					border-bottom: 0;
+					background-color: rgba(17, 17, 17, 0.5);
 				}
 
 					#header nav ul li a:hover {
@@ -1374,7 +1413,6 @@ input, select, textarea {
 					}
 
 		#header nav.use-middle:after {
-			content: '';
 			display: block;
 			position: absolute;
 			top: 0;
