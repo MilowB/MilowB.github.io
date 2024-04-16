@@ -274,6 +274,7 @@
 
 				<!-- Footer -->
 					<footer id="footer">
+                        <p id="updated_date" class="copyright">Mis à jour le <b>23/11/1993</b></p>
 						<p class="copyright">&copy; Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
 					</footer>
 
@@ -294,6 +295,27 @@
 					sum += parseInt(obj.textContent);
 				});
 				$('#counter_sum').text("Teaching (" + sum + "h)");
+			</script>
+			<script>
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					let repos = JSON.parse(this.responseText);
+					updates_str = "Date de mise à jour introuvable"
+					repos.forEach((repo)=>{
+						if(repo.name == "MilowB.github.io"){
+							d = new Date(repo.pushed_at)
+							date = d.getDate()
+							month = d.toLocaleString('default', { month: 'long' });
+							year = d.getYear()+1900
+							updates_str = "Mis à jour le <b>" + date + " " + month + " " + year + "</b>"
+						}
+						$('#updated_date').html(updates_str)
+					});
+				}
+				};
+				xhttp.open("GET", "https://api.github.com/users/MilowB/repos", true);
+				xhttp.send();
 			</script>
 	</body>
 </html>
