@@ -50,6 +50,7 @@ ol, ul {
 	font-family: sans-serif;
 	font-weight: lighter;
 	font-size: 14px;
+	z-index: 0;
   }
   .notification-top-bar p {
 	padding: 0;
