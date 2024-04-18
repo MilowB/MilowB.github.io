@@ -42,7 +42,8 @@ ol, ul {
 	top: 0;
 	left: 0;
 	height: 40px;
-	line-height: 40px;
+    line-height: 35px;
+    height: auto;
 	width: 100%;
 	background: #1ABC9C;
 	text-align: center;
@@ -50,7 +51,6 @@ ol, ul {
 	font-family: sans-serif;
 	font-weight: lighter;
 	font-size: 14px;
-	z-index: 0;
   }
   .notification-top-bar p {
 	padding: 0;
@@ -965,7 +965,7 @@ input, select, textarea {
 	}
 
 	table {
-		margin: 0 0 2rem 0;
+		margin: 2rem 0 2rem 0;
 		width: 100%;
 	}
 
@@ -1319,7 +1319,7 @@ input, select, textarea {
 			#header > :first-child:before {
 				display: none;
 			}
-
+			
 		#header .logo {
 			width: 5.5rem;
 			height: 5.5rem;
@@ -1502,7 +1502,7 @@ input, select, textarea {
 		@media screen and (max-width: 480px) {
 
 			#header {
-				padding: 1.5rem 0;
+				padding: 5.5rem 0;
 			}
 
 				#header .content .inner {
