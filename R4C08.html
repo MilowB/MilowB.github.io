@@ -129,8 +129,9 @@
                             <form id="loginForm">
                                 <label for="etu_id">Numéro étudiant :</label><br>
                                 <input type="text" id="etu_id" name="fname" placeholder="XXXX"><br>
-                                <input type="submit" value="Submit" onclick="openCSVFile('Enseignements/R4C08/notes_2024.csv');">
-                            </form> 
+                                <button type='button' onclick="openCSVFile('https://milowb.github.io/Enseignements/R4C08/notes_2024.csv');">Submit</button> 
+                            </form>
+                            <p id="resultat_evaluation"></p>
                         </article>
                     </div>
                     <!-- Footer -->
@@ -152,39 +153,49 @@
 			<script src="assets/js/main.js"></script>
             <script>
                 function openCSVFile(CSVfileName){
-                    // create the object
-                    var httpRequest = new XMLHttpRequest();
-                    httpRequest.onreadystatechange = function() {
-                        processCSVContents(httpRequest);
-                    }
-                    // Send the request
-                    httpRequest.open("POST", CSVfileName, true);
-                    httpRequest.send(null);
+                    $.ajax({
+                        type: "GET",
+                        url: CSVfileName,
+                        dataType: "text",
+                        success: processCSVContents
+                    });
                 }
 
-                function processCSVContents(httpRequest){
-                    console.log("--> here");
-                    if (httpRequest.readyState == 4){
-                        // everything is good, the response is received
-                        if ((httpRequest.status == 200)
-                        || (httpRequest.status == 0)){
-                            // Analys the contents using the stats library
-                            // and display the results
-                            CSVContents = httpRequest.responseText;
-                            var data = $.csv.toObjects(CSVContents);
-                            console.log(" => Response status: " + httpRequest.status)
-                            console.log(CSVContents);
-                            let etu_id = document.getElementById("etu_id");
-                            if (etu_id.value == "") {
-                                console.log("Renseignez un numéro d'étudiant svp")
-                            } else {
-                                var data = $.csv.toObjects("");
-                                console.log(data)
+                function generateTable(dictionary) {  
+                    let table = '<table><tr>';  
+                    for (const [key, value] of Object.entries(dictionary)) {
+                        if(key != "commentaire")
+                            table += '<th>' + key + '</th>';  
+                    }
+                    table += "</tr><tr>"
+                    for (const [key, value] of Object.entries(dictionary)) {
+                        if(key != "commentaire")
+                            table += "<td>" + value + "</td>";
+                    }
+                    table += '</table>';
+                    if(dictionary["commentaire"] != undefined)
+                        table += "Commentaire : " + dictionary["commentaire"]
+                    return table;  
+                }  
+
+                function processCSVContents(text){
+                    var data = $.csv.toObjects(text);
+                    let etu_id = document.getElementById("etu_id");
+                    if (etu_id.value == "") {
+                        $('#resultat_evaluation').html("Il faut renseigner un numéro d'étudiant !");
+                    } else {
+                        res = null;
+                        for(i = 0; i < data.length; i++){
+                            if(data[i]["Num etu"] == etu_id.value) {
+                                res = data[i];
+                                break;
                             }
-                        } else {
-                        alert(' => There was a problem with the request. ' 
-                                + httpRequest.status + httpRequest.responseText);
                         }
+                        if(res != null){
+                            to_print = generateTable(res)
+                            $('#resultat_evaluation').html(to_print);
+                        }
+                        else $('#resultat_evaluation').html("Numéro d'étudiant introuvable !"); 
                     }
                 }
             </script>
