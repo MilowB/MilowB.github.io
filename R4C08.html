@@ -38,8 +38,9 @@
                                 <li><a href="#intro">Présentation</a></li>
                                 <li><a href="#CM">CM</a></li>
                                 <li><a href="#TD">TD</a></li>
-							    <li><a href="#Depot">Zone de Dépôts</a></li>
 							    <li><a href="#Evaluation">Evaluation</a></li>
+							    <li><a href="#Depot">Zone de Dépôts</a></li>
+							    <li><a href="#Resultats">Resultats</a></li>
                             </ul>
                         </nav>
                     </header>
@@ -121,6 +122,16 @@
                                 </tr>
                             </table>
                         </article>
+
+                        <article id="Resultats">
+                            <h2 class="major">Notes de projet</h2>
+                            <p>Accédez aux détails de votre note et à mes commentaires en renseignant votre numéro étudiant ci-dessous :</p>
+                            <form id="loginForm">
+                                <label for="etu_id">Numéro étudiant :</label><br>
+                                <input type="text" id="etu_id" name="fname" placeholder="XXXX"><br>
+                                <input type="submit" value="Submit" onclick="openCSVFile('Enseignements/R4C08/notes_2024.csv');">
+                            </form> 
+                        </article>
                     </div>
                     <!-- Footer -->
                     <footer id="footer">
@@ -134,10 +145,48 @@
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/jquery.csv.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+            <script>
+                function openCSVFile(CSVfileName){
+                    // create the object
+                    var httpRequest = new XMLHttpRequest();
+                    httpRequest.onreadystatechange = function() {
+                        processCSVContents(httpRequest);
+                    }
+                    // Send the request
+                    httpRequest.open("POST", CSVfileName, true);
+                    httpRequest.send(null);
+                }
 
+                function processCSVContents(httpRequest){
+                    console.log("--> here");
+                    if (httpRequest.readyState == 4){
+                        // everything is good, the response is received
+                        if ((httpRequest.status == 200)
+                        || (httpRequest.status == 0)){
+                            // Analys the contents using the stats library
+                            // and display the results
+                            CSVContents = httpRequest.responseText;
+                            var data = $.csv.toObjects(CSVContents);
+                            console.log(" => Response status: " + httpRequest.status)
+                            console.log(CSVContents);
+                            let etu_id = document.getElementById("etu_id");
+                            if (etu_id.value == "") {
+                                console.log("Renseignez un numéro d'étudiant svp")
+                            } else {
+                                var data = $.csv.toObjects("");
+                                console.log(data)
+                            }
+                        } else {
+                        alert(' => There was a problem with the request. ' 
+                                + httpRequest.status + httpRequest.responseText);
+                        }
+                    }
+                }
+            </script>
 	</body>
 </html>
