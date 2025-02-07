@@ -84,6 +84,8 @@
 		var Gridworld = function () {
 			this.Rarr = null; // reward array
 			this.T = null; // cell types, 0 = normal, 1 = cliff
+			switchEasyMode();
+
 			this.reset()
 		}
 		Gridworld.prototype = {
@@ -210,7 +212,8 @@
 		var nextBestActionQvalue = 0;
 		var equation = false;
 		// 0 = easy
-		// 1 = advanced
+		// 1 = intermediate
+		// 2 = advanced
 		var mode = 0;
 
 		var initGrid = function () {
@@ -546,7 +549,8 @@
 				barchart = true;
 				$("#creward").html(env.Rarr[s].toFixed(2));
 				$("#rewardui").show("slow", function () { });
-				$(".qvaluescharts").show("slow", function () { });
+				if (mode > 0)
+					$(".qvaluescharts").show("slow", function () { });
 				$("#rewardslider").slider('value', env.Rarr[s]);
 			}
 			showBarChart(qvalues, d3.select('svg'), 6);
@@ -654,7 +658,7 @@
 										nsteps_history = nsteps_history.slice(1);
 									}
 									for (var i = 0; i < poss.length; i++) {
-										if (cells[selectedCell][poss[i]] !== 'undefined' && cells[selectedCell][poss[i]].length >= nflot) {
+										if (selectedCell >= 0 && cells[selectedCell][poss[i]] !== 'undefined' && cells[selectedCell][poss[i]].length >= nflot) {
 											var poss = env.allowedActions(selectedCell);
 											var size = cells[selectedCell][poss[i]].length;
 											cells[selectedCell][poss[i]] = cells[selectedCell][poss[i]].slice(size - nflot, size);
@@ -963,7 +967,7 @@
 			for (var i = 0; i < Object.keys(rs).length; i++) {
 				rs[i].attr("stroke", "#DEDEDE").attr("stroke-width", "2");
 			}
-			if (updateColors && previousState >= 0 && mode > 0) {
+			if (updateColors && previousState >= 0 && mode > 1) {
 				rs[previousState].attr("stroke", "#B981EF").attr("stroke-width", "8px");
 				rs[state].attr("stroke", "#1900FF").attr("stroke-width", "8px");
 			}
@@ -973,11 +977,26 @@
 		function switchEasyMode() {
 			mode = 0;
 			$("#advancedModeHTML").hide("slow", function () { });
+			$("#intermediateModeHTML").hide("slow", function () { });
+
+			let modeDescription = document.getElementById("modeDescription");
+			modeDescription.innerHTML = "<strong>Mode facile activé.<br>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton 'Commencer' lance l'apprentissage. Le bouton 'Exécuter un mouvement' permet d'exécuter les actions une part une. Vous pouvez découvrir l'effet du paramètre 'epsilon' permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action pour une case donnée. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
+		}
+
+		function switchIntermediateMode() {
+			mode = 1;
+			$("#intermediateModeHTML").show("slow", function () { });
+			$("#advancedModeHTML").hide("slow", function () { });
+			let modeDescription = document.getElementById("modeDescription");
+			modeDescription.innerHTML = "<strong>Mode intermédiaire activé.<br>Objectif : </strong> découvrir les effets des paramètres alpha et gamma. Jouez avec les valeurs et observez les résultats sur le calcul des valeurs des chaque couple (état, action). Quatre nouveaux graphiques présentant l'historique des valeurs vous permettront de mieux appréhender les changements induits par alpha et gamma. Vous devriez observer qu'Alpha influence la vitesse d'apprentissage alors que gamma influence la portée de la propagation des récompenses dans la grille. Essayez de trouver les meilleurs paramètres vous permettant d'accéder à la case objectif avec le moins d'étapes possible.";
 		}
 
 		function switchAdvancedMode() {
-			mode = 1;
+			mode = 2;
+			$("#intermediateModeHTML").show("slow", function () { });
 			$("#advancedModeHTML").show("slow", function () { });
+			let modeDescription = document.getElementById("modeDescription");
+			modeDescription.innerHTML = "<strong>Mode avancé activé.<br>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par alpha ou comment la portée des récompenses peut être réduite par gamma.";
 		}
 	</script>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -996,14 +1015,19 @@
 
 	<div class="container" id="wrap" style="margin-top: 50px;">
 		<div class="row" style="text-align: center; padding:10px; border: solid;">
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<button class="btn btn-success" onclick="switchEasyMode()"
 					style="width:150px;height:50px;margin-bottom:5px;">Mode facile</button>
 			</div>
-			<div class="col-sm-6">
-				<button class="btn btn-primary" onclick="switchAdvancedMode()"
+			<div class="col-sm-4">
+				<button class="btn btn-warning" onclick="switchIntermediateMode()"
+					style="width:200px;height:50px;margin-bottom:5px;">Mode intermédiaire</button>
+			</div>
+			<div class="col-sm-4">
+				<button class="btn btn-danger" onclick="switchAdvancedMode()"
 					style="width:200px;height:50px;margin-bottom:5px;">Mode avancé</button>
 			</div>
+			<p id="modeDescription"></p>
 		</div>
 
 		<div class="row" style="text-align: center; margin-top: 25px; padding:10px; border: solid;">
@@ -1062,6 +1086,8 @@
 					\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
 					\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
 					\, \)</p>
+			</div>
+			<div class="row" id="intermediateModeHTML">
 				<div class="row">
 					<div class="col-sm-6">
 						Taux d'apprentissage (alpha) : <span id="alpha">0.10</span>
@@ -1105,8 +1131,8 @@
 		<button onclick="w3_close()" class="w3-bar-item w3-large">Fermer &times;</button>
 		<h2>Bienvenue dans ce bac à sable</h2>
 		<p style="font-size: 18px; margin: 15px;">
-			Ici vous pourrez expérimenter le QLearning et essayer de changer ses paramètres pour mieux comprendre
-			comment il fonctionne. Votre objectif : amener le point bleu en haut à gauche de la grille sur sa case
+			Ici vous pourrez expérimenter le QLearning et essayez de changer ses paramètres pour mieux comprendre
+			comment il fonctionne. Votre objectif : amener le point bleu (votre agent) en haut à gauche de la grille sur sa case
 			objectif en bas à droite ! <br>
 			<strong>Pour cela, cliquez sur "Commencer" !</strong> <br><br>
 			Lorsque la grille devient verte, vous pouvez cliquer sur <strong>"Pause"</strong> et continuez avec le
