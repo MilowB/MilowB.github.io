@@ -996,7 +996,7 @@
 			$("#intermediateModeHTML").show("slow", function () { });
 			$("#advancedModeHTML").show("slow", function () { });
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Mode avancé activé.<br>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par alpha ou comment la portée des récompenses peut être réduite par gamma.";
+			modeDescription.innerHTML = "<strong>Mode avancé activé.<br>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille en cliquant sur 'Exécuter un mouvement'. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par alpha ou comment la portée des récompenses peut être réduite par gamma.";
 		}
 	</script>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -1031,11 +1031,11 @@
 		</div>
 
 		<div class="row" style="text-align: center; margin-top: 25px; padding:10px; border: solid;">
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<button class="btn btn-danger" onclick="resetAgent()"
 					style="width:150px;height:50px;margin-bottom:5px;">Reinitialiser agent</button>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<button class="btn btn-warning" onclick="resetParameters()"
 					style="width:200px;height:50px;margin-bottom:5px;">Réinitialiser les paramètres</button>
 			</div>
