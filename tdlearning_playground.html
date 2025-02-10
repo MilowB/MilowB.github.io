@@ -50,6 +50,38 @@
 
 	<style>
 		#wrap {
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			padding-top: 35px;
+			padding-bottom: 35px;
+		}
+
+		#wrapWhite {
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding-top: 35px;
+			padding-bottom: 35px;
+		}
+
+		#wrapGrey {
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: #F7F7F7;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding-top: 35px;
+			padding-bottom: 35px;
+			border-top: solid;
+			border-bottom: solid;
+			border-color: #DDDDDD;
+		}
+
+		#wrapTight {
 			width: 1000px;
 			margin-left: auto;
 			margin-right: auto;
@@ -92,21 +124,28 @@
 			reset: function () {
 
 				// hardcoding one gridworld for now
-				this.gh = 5;
-				this.gw = 5;
+				this.gh = 7;
+				this.gw = 6;
 				this.gs = this.gh * this.gw; // number of states
-				this.finalState = 24;
+				this.finalState = 31;
 				this.minReward = 0;
 				this.maxReward = 0;
 				// specify some rewards
 				var Rarr = R.zeros(this.gs);
 				var T = R.zeros(this.gs);
 				Rarr[this.finalState] = 1.5;
-				Rarr[7] = -0.5;
+				Rarr[18] = -0.5;
 
-				T[2] = 1;
-				T[12] = 1;
+				T[4] = 1;
+				T[7] = 1;
+				T[9] = 1;
+				T[10] = 1;
+				T[13] = 1;
 				T[22] = 1;
+				T[24] = 1;
+				T[30] = 1;
+				T[35] = 1;
+				T[39] = 1;
 
 				this.Rarr = Rarr;
 				this.T = T;
@@ -217,6 +256,7 @@
 		var mode = 0;
 
 		var initGrid = function () {
+			updateEquation(false);
 			$("#advancedModeHTML").hide();
 			$(".qvaluescharts").hide();
 			$("#rewardui").hide();
@@ -263,6 +303,7 @@
 					var r = g.append('rect')
 						.attr('x', xcoord)
 						.attr('y', ycoord)
+						.attr('s', s)
 						.attr('height', cs)
 						.attr('width', cs)
 						.attr('fill', '#86847A')
@@ -270,10 +311,21 @@
 						.attr('stroke-width', 2);
 					rs[s] = r;
 
+					// Affichage de l'image sur une case spécifique (ex: en haut à gauche)
+					/*if (x === 0 && y === 0) {
+						g.append('image')
+							.attr('x', xcoord)
+							.attr('y', ycoord)
+							.attr('width', cs)
+							.attr('height', cs)
+							.attr('href', 'images/fire.svg'); // Remplace par l'URL de ton image
+					}*/
+
 					// reward text
 					var tr = g.append('text')
 						.attr('x', xcoord + 5)
 						.attr('y', ycoord + 55)
+						.attr('s', s)
 						.attr('font-size', 10)
 						.text('');
 					trs[s] = tr;
@@ -312,18 +364,19 @@
 				.attr('fill', '#327BB5')
 				.attr('stroke', '#000')
 				.attr('id', 'cpos');
+			//.attr('href', 'images/fire.svg');
 
 		}
 
 		function showBarChart(actionValues, svg, gridSize) {
 			if (barchart) {
 				var chartWidth = 200;  // Largeur de la zone du bar chart
-				var chartHeight = gridSize * 50;  // Ajusté à la hauteur de la grille
+				var chartHeight = (gridSize - 1) * 50;  // Ajusté à la hauteur de la grille
 				var margin = { top: 20, right: 20, bottom: 40, left: 50 };
 
 				// Positionnement du graphique
 				var chartX = gridSize * 50 + 50;
-				var chartY = 20;
+				var chartY = 10;
 
 				// Supprime l'ancien graphique s'il existe
 				svg.selectAll(".bar-chart-group").remove();
@@ -435,6 +488,42 @@
 					var r = 255, g = 255, b = 255;
 					var s = env.xytos(x, y);
 
+					d3.select('svg')
+						.selectAll('image') // Sélectionner toutes les images
+						.filter(function () {
+							// Vérifier si l'image est déjà associée à cet état terminal
+							var imageS = d3.select(this).attr('s');
+							return imageS == s; // Comparer les coordonnées
+						})
+						.remove();
+					// Ajouter une image sur certaines cases (exemple : les états terminaux ou obstacles)
+					if (env.Rarr[s] < 0) {
+						var ratio = env.Rarr[s] * -0.8;
+
+						d3.select('svg')
+							.append('image')
+							.attr('x', xcoord)
+							.attr('y', ycoord)
+							.attr('s', s)
+							.attr('width', cs)
+							.attr('height', cs)
+							.attr('href', 'images/fire.svg')
+							.style('pointer-events', 'none') // Empêche l'image d'interférer avec les clics$
+							.attr('opacity', '0.75');
+					}
+					else if (s == env.finalState) {
+						d3.select('svg')
+							.append('image')
+							.attr('x', xcoord)
+							.attr('y', ycoord)
+							.attr('s', s)
+							.attr('width', cs)
+							.attr('height', cs)
+							.attr('href', 'images/gem.svg')
+							.style('pointer-events', 'none') // Empêche l'image d'interférer avec les clics$
+							.attr('opacity', '0.75');
+					}
+
 					// get value of state s under agent policy
 					if (typeof agent.V !== 'undefined') {
 						var vv = agent.V[s];
@@ -467,7 +556,7 @@
 					var rv = env.Rarr[s];
 					var tr = trs[s];
 					if (rv !== 0) {
-						tr.text('R ' + rv.toFixed(1))
+						tr.text('R ' + rv.toFixed(1));
 					}
 
 					// skip rest for cliff
@@ -477,8 +566,6 @@
 					var tv = tvs[s];
 					if (s !== env.finalState)
 						tv.text(String(Math.round(vv * 100) / 100)); // vv.toFixed(2)
-					else
-						tv.text("Objectif");
 
 					// update policy arrows
 					var paa = pas[s];
@@ -515,7 +602,7 @@
 						qvalues[c] = qsa;
 					}
 				}
-				showBarChart(qvalues, d3.select('svg'), 6);
+				showBarChart(qvalues, d3.select('svg'), env.gh);
 			}
 		}
 
@@ -551,9 +638,9 @@
 				$("#rewardui").show("slow", function () { });
 				if (mode > 0)
 					$(".qvaluescharts").show("slow", function () { });
-				$("#rewardslider").slider('value', env.Rarr[s]);
+				//$("#rewardslider").slider('value', env.Rarr[s]);
 			}
-			showBarChart(qvalues, d3.select('svg'), 6);
+			showBarChart(qvalues, d3.select('svg'), env.gh);
 			drawGrid(); // redraw
 		}
 
@@ -686,12 +773,15 @@
 		function resetAgent() {
 			eval($("#agentspec").val())
 			agent = new RL.TDAgent(env, spec);
-			$("#slider").slider('value', agent.epsilon);
-			$("#gammaSlider").slider('value', agent.gamma);
-			$("#alphaSlider").slider('value', agent.alpha);
-			$("#speed").slider('value', steps_per_tick / 100);
+			document.getElementById("slider").value = agent.epsilon;
+			document.getElementById("gammaSlider").value = agent.gamma;
+			document.getElementById("alphaSlider").value = agent.alpha;
+			document.getElementById("speed").value = steps_per_tick / 100;
 			$("#spe").html((steps_per_tick / 100).toFixed(2));
-			$("#eps").html(agent.epsilon.toFixed(2));
+			$("#eps").html(Math.round(agent.epsilon * 100) / 100);
+			$("#gamma").html(Math.round(agent.gamma * 100) / 100);
+			$("#alpha").html(Math.round(agent.alpha * 100) / 100);
+
 			state = env.startState(); // move state to beginning too
 			drawGrid();
 			updateEquation(false);
@@ -704,9 +794,14 @@
 			agent.epsilon = 0.20
 			agent.gamma = 0.90
 			agent.alpha = 0.10
+			/*
 			$("#slider").slider('value', agent.epsilon);
 			$("#gammaSlider").slider('value', agent.gamma);
 			$("#alphaSlider").slider('value', agent.alpha);
+			*/
+			document.getElementById("slider").value = agent.epsilon;
+			document.getElementById("gammaSlider").value = agent.gamma;
+			document.getElementById("alphaSlider").value = agent.alpha;
 			$("#eps").html(agent.epsilon.toFixed(2));
 			$("#gamma").html(agent.gamma.toFixed(2));
 			$("#alpha").html(agent.epsilon.toFixed(2));
@@ -872,73 +967,32 @@
 			eval($("#agentspec").val())
 			agent = new RL.TDAgent(env, spec);
 
-			//agent = new RL.ActorCriticAgent(env, {'gamma':0.9, 'epsilon':0.2});
+			document.querySelector('#slider')
+				.addEventListener('input', evt => {
+					onChangeRangeSlider(evt.target.value);
+				});
 
-			// slider sets agent epsilon
-			$("#slider").slider({
-				min: 0,
-				max: 1.01,
-				value: agent.epsilon,
-				step: 0.01,
-				slide: function (event, ui) {
-					agent.epsilon = ui.value;
-					$("#eps").html(ui.value.toFixed(2));
-				}
-			});
+			document.querySelector('#gammaSlider')
+				.addEventListener('input', evt => {
+					onChangeRangeGamma(evt.target.value);
+				});
 
-			$("#gammaSlider").slider({
-				min: 0,
-				max: 1.01,
-				value: agent.gamma,
-				step: 0.01,
-				slide: function (event, ui) {
-					agent.gamma = ui.value;
-					$("#gamma").html(ui.value.toFixed(2));
-					updateEquation(false);
-				}
-			});
+			document.querySelector('#alphaSlider')
+				.addEventListener('input', evt => {
+					onChangeRangeAlpha(evt.target.value);
+				});
 
-			$("#alphaSlider").slider({
-				min: 0,
-				max: 1.01,
-				value: agent.alpha,
-				step: 0.01,
-				slide: function (event, ui) {
-					agent.alpha = ui.value;
-					$("#alpha").html(ui.value.toFixed(2));
-					updateEquation(false);
-				}
-			});
+			document.querySelector('#speed')
+				.addEventListener('input', evt => {
+					onChangeRangeSpeed(evt.target.value);
+				});
 
-			// slider sets expe speed
-			$("#speed").slider({
-				min: 0,
-				max: 1.01,
-				value: steps_per_tick / 100,
-				step: 0.01,
-				slide: function (event, ui) {
-					steps_per_tick = ui.value * 100;
-					save_tick = steps_per_tick;
-					$("#spe").html(ui.value.toFixed(2));
-				}
-			});
-
-			$("#rewardslider").slider({
-				min: -5,
-				max: 5.1,
-				value: 0,
-				step: 0.1,
-				slide: function (event, ui) {
-					if (selected >= 0) {
-						env.Rarr[selected] = ui.value;
-						$("#creward").html(ui.value.toFixed(2));
-						drawGrid();
-					}
-				}
-			});
+			document.querySelector('#rewardslider')
+				.addEventListener('input', evt => {
+					onChangeRangeReward(evt.target.value);
+				});
 
 			$("#eps").html(agent.epsilon.toFixed(2));
-			$("#slider").slider('value', agent.epsilon);
 
 			// render markdown
 			$(".md").each(function () {
@@ -948,6 +1002,38 @@
 			initGrid();
 			drawGrid();
 			initGraph();
+		}
+
+		function onChangeRangeSlider(value) {
+			agent.epsilon = value;
+			$("#eps").html(Math.round(value * 100) / 100);
+		}
+
+		function onChangeRangeGamma(value) {
+			agent.gamma = value;
+			$("#gamma").html(Math.round(value * 100) / 100);
+			updateEquation(false);
+		}
+
+		function onChangeRangeAlpha(value) {
+			agent.alpha = value;
+			$("#alpha").html(Math.round(value * 100) / 100);
+			updateEquation(false);
+		}
+
+		function onChangeRangeSpeed(value) {
+			steps_per_tick = value * 100;
+			save_tick = steps_per_tick;
+			$("#spe").html(Math.round(value * 100) / 100);
+		}
+
+		function onChangeRangeReward(value) {
+			if (selected >= 0) {
+				var slider = value;
+				env.Rarr[selected] = value;
+				$("#creward").html(Math.round(value * 100) / 100);
+				drawGrid();
+			}
 		}
 
 		function updateEquation(updateColors) {
@@ -978,7 +1064,9 @@
 			mode = 0;
 			$("#advancedModeHTML").hide("slow", function () { });
 			$("#intermediateModeHTML").hide("slow", function () { });
-
+			document.getElementById("bar1").classList.add("active");
+			document.getElementById("bar2").classList.remove("active");
+			document.getElementById("bar3").classList.remove("active");
 			let modeDescription = document.getElementById("modeDescription");
 			modeDescription.innerHTML = "<strong>Mode facile activé.<br>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton 'Commencer' lance l'apprentissage. Le bouton 'Exécuter un mouvement' permet d'exécuter les actions une part une. Vous pouvez découvrir l'effet du paramètre 'epsilon' permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action pour une case donnée. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
 		}
@@ -987,6 +1075,9 @@
 			mode = 1;
 			$("#intermediateModeHTML").show("slow", function () { });
 			$("#advancedModeHTML").hide("slow", function () { });
+			document.getElementById("bar1").classList.remove("active");
+			document.getElementById("bar2").classList.add("active");
+			document.getElementById("bar3").classList.remove("active");
 			let modeDescription = document.getElementById("modeDescription");
 			modeDescription.innerHTML = "<strong>Mode intermédiaire activé.<br>Objectif : </strong> découvrir les effets des paramètres alpha et gamma. Jouez avec les valeurs et observez les résultats sur le calcul des valeurs des chaque couple (état, action). Quatre nouveaux graphiques présentant l'historique des valeurs vous permettront de mieux appréhender les changements induits par alpha et gamma. Vous devriez observer qu'Alpha influence la vitesse d'apprentissage alors que gamma influence la portée de la propagation des récompenses dans la grille. Essayez de trouver les meilleurs paramètres vous permettant d'accéder à la case objectif avec le moins d'étapes possible.";
 		}
@@ -995,6 +1086,9 @@
 			mode = 2;
 			$("#intermediateModeHTML").show("slow", function () { });
 			$("#advancedModeHTML").show("slow", function () { });
+			document.getElementById("bar1").classList.remove("active");
+			document.getElementById("bar2").classList.remove("active");
+			document.getElementById("bar3").classList.add("active");
 			let modeDescription = document.getElementById("modeDescription");
 			modeDescription.innerHTML = "<strong>Mode avancé activé.<br>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille en cliquant sur 'Exécuter un mouvement'. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par alpha ou comment la portée des récompenses peut être réduite par gamma.";
 		}
@@ -1007,121 +1101,135 @@
 	<!-- Page Content -->
 
 	<div class="w3-teal container" id="wrap">
-		<button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">----------> ☰ Tutoriel <---------- </button>
-				<div class="w3-container">
-					<h1 style="text-align: center;">Temporal Difference QLearning Playground</h1>
-				</div>
+		<div id="wrapTight">
+			<!--<button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">---- ☰ Tutoriel <---------- </button>-->
+					<div class="w3-container">
+						<h1 style="text-align: center;">Temporal Difference QLearning Playground</h1>
+					</div>
+		</div>
 	</div>
 
-	<div class="container" id="wrap" style="margin-top: 50px;">
-		<div class="row" style="text-align: center; padding:10px; border: solid;">
-			<div class="col-sm-4">
-				<button class="btn btn-success" onclick="switchEasyMode()"
-					style="width:150px;height:50px;margin-bottom:5px;">Mode facile</button>
-			</div>
-			<div class="col-sm-4">
-				<button class="btn btn-warning" onclick="switchIntermediateMode()"
-					style="width:200px;height:50px;margin-bottom:5px;">Mode intermédiaire</button>
-			</div>
-			<div class="col-sm-4">
-				<button class="btn btn-danger" onclick="switchAdvancedMode()"
-					style="width:200px;height:50px;margin-bottom:5px;">Mode avancé</button>
-			</div>
-			<p id="modeDescription"></p>
-		</div>
-
-		<div class="row" style="text-align: center; margin-top: 25px; padding:10px; border: solid;">
-			<div class="col-sm-4">
-				<button class="btn btn-danger" onclick="resetAgent()"
-					style="width:150px;height:50px;margin-bottom:5px;">Reinitialiser agent</button>
-			</div>
-			<div class="col-sm-4">
-				<button class="btn btn-warning" onclick="resetParameters()"
-					style="width:200px;height:50px;margin-bottom:5px;">Réinitialiser les paramètres</button>
+	<div class="container" id="wrapWhite" style="margin-top: 50px;">
+		<div id="wrapTight">
+			<div class="row" style="text-align: center; padding:10px;">
+				<div class="col-sm-12">
+					<ul class="nav nav-tabs">
+						<li role="presentation" id="bar1" class="active" onclick="switchEasyMode()"><a href="#bar1">Mode
+								facile</a></li>
+						<li role="presentation" id="bar2" onclick="switchIntermediateMode()"><a href="#bar1">Mode
+								intermédiaire</a></li>
+						<li role="presentation" id="bar3" onclick="switchAdvancedMode()"><a href="#bar1">Mode avancé</a>
+						</li>
+					</ul>
+				</div>
+				<p id="modeDescription" style="font-size: 16px; margin-top: 15px;"></p>
 			</div>
 		</div>
+	</div>
 
-		<div class="row" style="text-align: center; margin-top: 25px; border:solid; padding:10px;">
-			<div class="row" style="text-align: center; margin-top: 25px;">
-				<div class="col-sm-6">
-					<button id="startButton" class="btn btn-primary" onclick="startAgain()"
-						style="width:150px;height:50px;margin-bottom:5px;">Commencer</button>
+	<div class="container" id="wrapGrey" style="margin-top: 50px;">
+		<div id="wrapTight">
+			<div class="row" style="text-align: center; margin-top: 25px; margin-bottom: 25px; padding:10px;">
+				<div class="row" style="text-align: center; margin-top: 25px;">
+					<div class="col-sm-6">
+						<button id="startButton" class="btn btn-primary" onclick="startAgain()"
+							style="width:150px;height:50px;margin-bottom:5px;">Commencer</button>
+					</div>
+					<div class="col-sm-6">
+						<button class="btn btn-success" onclick="nextStep()"
+							style="width:200px;height:50px;margin-bottom:5px;">Exécuter un mouvement</button>
+					</div>
 				</div>
-				<div class="col-sm-6">
-					<button class="btn btn-success" onclick="nextStep()"
-						style="width:200px;height:50px;margin-bottom:5px;">Exécuter un mouvement</button>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-6">
-					Vitesse de l'expérience : <span id="spe">0.20</span>
-					<div id="speed" style="width: 100%;"></div>
-				</div>
-				<div class="col-sm-6">
-					Exploration (epsilon) : <span id="eps">0.15</span>
-					<div id="slider" style="width: 100%;"></div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" style="text-align: center; margin-top: 25px; border:solid; padding:10px;">
-			<div class="row">
-				<div id="draw" style="margin-top: 55px;"></div>
-			</div>
-			<br>
-			<div id="rewardui" style="width: 80%; padding-left: 20%;">
-				Récompense de la case : <span id="creward"></span>
-				<div id="rewardslider"></div>
-			</div>
-			<div class="row" id="advancedModeHTML">
-				<h3>Équation utilisée pour mettre à jour les valeurs :</h3>
-				<p style="font-size: 25px;">
-					\( Q(s, a) \leftarrow \textcolor{blueviolet}{Q(s, a)} + \textcolor{orange}{\alpha} \times [ \,
-					\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
-					\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
-					\, \)</p>
-				<p id="equation" style="font-size: 25px;">
-					\( Q(s, a) \leftarrow \textcolor{blueviolet}{Q(s, a)} + \textcolor{orange}{\alpha} \times [ \,
-					\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
-					\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
-					\, \)</p>
-			</div>
-			<div class="row" id="intermediateModeHTML">
+				<br>
 				<div class="row">
 					<div class="col-sm-6">
+						Vitesse de l'expérience : <span id="spe">0.20</span>
+						<input id="speed" type="range" min="0" max="1" value="0.20" step="0.01" style="width: 100%;">
+					</div>
+					<div class="col-sm-6">
+						Exploration (epsilon) : <span id="eps">0.20</span>
+						<input id="slider" type="range" min="0" max="1" value="0.15" step="0.01" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="row" style="text-align: center; margin-top: 25px; padding:10px;">
+				<div class="row">
+					<div class="col-sm-2">
+						<button class="btn btn-danger" onclick="resetAgent()"
+							style="width:150px;height:50px;margin-bottom:5px;">Reinitialiser agent</button>
+					</div>
+					<!--<div class="col-sm-6">
+					<button class="btn btn-warning" onclick="resetParameters()"
+					style="width:200px;height:50px;margin-bottom:5px;">Réinitialiser les paramètres</button>
+				</div>-->
+					<div class="col-sm-10">
+						<div id="draw"></div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-12">
+						<div id="rewardui" style="width: 80%; padding-left: 20%;">
+							Récompense de la case : <span id="creward"></span>
+							<input id="rewardslider" type="range" min="-5" max="5" value="0" step="0.1">
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="row" id="advancedModeHTML">
+					<h3>Équation utilisée pour mettre à jour les valeurs :</h3>
+					<p style="font-size: 25px;">
+						\( Q(s, a) \leftarrow \textcolor{blueviolet}{Q(s, a)} + \textcolor{orange}{\alpha} \times [ \,
+						\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
+						\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
+						\, \)</p>
+					<p id="equation" style="font-size: 25px;">
+						\( Q(s, a) \leftarrow \textcolor{blueviolet}{Q(s, a)} + \textcolor{orange}{\alpha} \times [ \,
+						\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
+						\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
+						\, \)</p>
+				</div>
+				<div class="row" id="intermediateModeHTML">
+					<div class="col-sm-6">
 						Taux d'apprentissage (alpha) : <span id="alpha">0.10</span>
-						<div id="alphaSlider" style="width: 100%;"></div>
+						<input id="alphaSlider" type="range" min="0" max="1" value="0.10" step="0.01"
+							style="width: 100%; text-align: center;">
 					</div>
 					<div class="col-sm-6">
 						Facteur de réduction (gamma) : <span id="gamma">0.9</span>
-						<div id="gammaSlider" style="width: 100%;"></div>
+						<input id="gammaSlider" type="range" min="0" max="1" value="0.90" step="0.01"
+							style="width: 100%;">
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row" style="text-align: center; margin-top: 25px; border:solid; padding:10px;">
-			<div class="row qvaluescharts" style="margin-top: 25px;">
-				<h3>Valeurs pour chaque action :</h3>
-				<div class="col-sm-6">
-					Gauche <div id="flotqvaluesgauche" style="width:400px; height: 150px;"></div>
+	</div>
+	<div class="container" id="wrapWhite" style="margin-top: 50px;">
+		<div id="wrapTight">
+			<div class="row" style="text-align: center; margin-top: 25px; padding:10px;">
+				<div class="row qvaluescharts" style="margin-top: 25px;">
+					<h3>Valeurs pour chaque action :</h3>
+					<div class="col-sm-6">
+						Gauche <div id="flotqvaluesgauche" style="width:400px; height: 150px;"></div>
+					</div>
+					<div class="col-sm-6">
+						Droite <div id="flotqvaluesdroite" style="width:400px; height: 150px;"></div>
+					</div>
 				</div>
-				<div class="col-sm-6">
-					Droite <div id="flotqvaluesdroite" style="width:400px; height: 150px;"></div>
+				<div class="row qvaluescharts" style="margin-top: 25px;">
+					<div class="col-sm-6">
+						Haut <div id="flotqvalueshaut" style="width:400px; height: 150px;"></div>
+					</div>
+					<div class="col-sm-6">
+						Bas <div id="flotqvaluesbas" style="width:400px; height: 150px;"></div>
+					</div>
 				</div>
-			</div>
-			<div class="row qvaluescharts" style="margin-top: 25px;">
-				<div class="col-sm-6">
-					Haut <div id="flotqvalueshaut" style="width:400px; height: 150px;"></div>
-				</div>
-				<div class="col-sm-6">
-					Bas <div id="flotqvaluesbas" style="width:400px; height: 150px;"></div>
-				</div>
-			</div>
 
-			<div class="row" style="margin-top: 25px;">
-				<h3>Nombre d'actions pour atteindre l'objectif :</h3>
-				<div id="flotreward" style="width:100%; height: 250px;"></div>
+				<div class="row" style="margin-top: 25px;">
+					<h3>Nombre d'actions pour atteindre l'objectif :</h3>
+					<div id="flotreward" style="width:100%; height: 250px;"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -1132,93 +1240,14 @@
 		<h2>Bienvenue dans ce bac à sable</h2>
 		<p style="font-size: 18px; margin: 15px;">
 			Ici vous pourrez expérimenter le QLearning et essayez de changer ses paramètres pour mieux comprendre
-			comment il fonctionne. Votre objectif : amener le point bleu (votre agent) en haut à gauche de la grille sur sa case
+			comment il fonctionne. Votre objectif : amener le point bleu (votre agent) en haut à gauche de la grille sur
+			sa case
 			objectif en bas à droite ! <br>
 			<strong>Pour cela, cliquez sur "Commencer" !</strong> <br><br>
 			Lorsque la grille devient verte, vous pouvez cliquer sur <strong>"Pause"</strong> et continuez avec le
 			bouton <strong>"Exécuter un
 				mouvement"</strong> pour voir le point bleu suivre le chemin vers son objectif.
 		</p>
-		<!--
-		<h2>Introduction au Q-Learning</h2>
-		<p style="font-size: 18px; margin: 15px;">
-			Considérons un système quelconque : par exemple, un jeu vidéo dans lequel un robot doit s'évader d'un
-			labyrinthe. Un agent (programme informatique, robot) doit alors
-			apprendre à réaliser une tâche : gagner une partie de jeu vidéo avec le plus de points, s'évader d'un
-			labyrinthe le plus rapidement possible. Le Q-learning permet
-			d'apprendre une stratégie, qui indique quelle action effectuer dans chaque état du système. Par exemple, le
-			robot peut apprendre d'aller à droite quand il se trouve sur la case (2, 3), mais d'aller en haut s'il se
-			trouve sur la case (4, 6), etc. A chaque étape, l'agent reçoit une récompense immédiate qui est un nombre
-			réel. Typiquement, l'agent peut recevoir 100 euros s'il est sorti du labyrinthe, ou s'il a gagné le jeu.
-			L'agent perd 1 euro pour chaque pas de temps qu'il reste dans le labyrinthe. C'est le concepteur de
-			l'environnement qui choisit ces récompenses immédiates lorsqu'il modélise le système.
-		</p>
-		<h2>Apprentissage</h2>
-		<p style="font-size: 18px; margin: 15px;">
-			L'apprentissage est réalisé grâce à une succession d'actions pendant lesquelles l'agent enregistre leur
-			utilité. Plus une action a une utilité élevée (une qvalue élevée), plus il l'utilisera à l'avenir. <br>
-			Les qvalues sont calculées grâce à l'équation suivante :
-			<br>
-			<br>
-			\( Q(s, a) \leftarrow Q(s, a) + \alpha \times [ \, R_{t+1} + \gamma \times max_{a'}Q(s_{t+1}, a') - Q(s, a)
-			] \)
-			<br>
-			<br>
-			\( s \) : état actuel (case sur laquelle le point se trouve)<br>
-			\( a \) : action choisie (gauche, droite, haut ou bas)<br>
-			\( R \) : récompense obtenue après avoir pris l'action a <br>
-			\( s' \) : nouvel état après l’action <br>
-			\( max_{a'}Q(s',a') \) : meilleure valeur estimée dans l’état suivant s'<br>
-			\( \alpha \) (taux d’apprentissage) : contrôle à quelle vitesse on met à jour Q(s,a)<br>
-			\( \gamma \) (facteur de discount) : pondère l’importance des récompenses futures<br>
-		</p>
-		<h2>Exploration vs Exploitation</h2>
-		<p style="font-size: 18px; margin: 15px;">
-			L’agent doit trouver un équilibre entre :<br>
-
-			- Exploiter ce qu’il sait déjà (choisir l’action avec la meilleure valeur \( Q(s,a) \)<br>
-			- Explorer de nouvelles actions pour découvrir potentiellement de meilleures stratégies. L'exploration peut
-			être réglée avec l'hyperparamètre \( epsilon \) qui est une probabilité que l’agent
-			choisisse une action aléatoire (exploration).<br>
-		</p>
-		<h2>Comment utiliser ce bac à sable ?</h2>
-		<p style="font-size: 18px; margin: 15px;">
-			1. Cliquez sur le bouton "Commencer" et observez comment l'agent apprend à se diriger sur sa case
-			objectif.<br>
-			2. Cliquez sur une case du plateau pour voir la valeur de chaque action. Notez que l'agent utilise toujours
-			l'action qui a la plus forte valeur, sauf s'il explore son environnement. Vous pouvez essayer plusieurs
-			valeurs de \( epsilon \) pour et voir comment l'agent se comporte.<br>
-			3. Cliquez sur la case objectif et changez la valeur de la récompense associée en une valeur négative.
-			Cliquez ensuite sur les cases adjacentes et observez les graphique de qvalues de chaque action. La stratégie
-			de l'agent s'adapte aux récompenses de la grille. Remettez une valeur positive de récompense avant de
-			continuer.<br>
-			4. Modifiez la valeur de \( alpha \) à 0. Que se passe-t-il ? Modifiez là en 1. Et à présent ? Remettez
-			alpha à 0.10.<br>
-			5. Modifiez la valeur de \( gamma \) à 0. Que se passe-t-il ? Modifiez là en 1. Et à présent ? Remettez
-			gamma à 0.90.<br>
-			6. Cliquez sur le bouton "Prochaine étape". Vous voyez apparaître les valeurs de chaque terme dans
-			l'équation de mise à jour des valeurs. Observez chaque terme, vous pourrez voir que la qvaleur d'un couple
-			(état, action) est "tirée" par la valeur maximum du prochain état.<br>
-			7. Enfin, essayez de jouer avec tous les paramètres du bac à sable pour essayer de minimiser le nombre
-			d'actions effectuées pour aller du départ à l'objectif. Vous pourrez visualiser votre avancement avec le
-			dernier graphique.<br>
-		-->
-		<!DOCTYPE html>
-		<html lang="en">
-
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>Document</title>
-		</head>
-
-		<body>
-
-		</body>
-
-		</html>
-		</p>
-
 	</div>
 	<script>
 		function w3_open() {
