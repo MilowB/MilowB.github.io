@@ -640,6 +640,7 @@
 					$(".qvaluescharts").show("slow", function () { });
 				//$("#rewardslider").slider('value', env.Rarr[s]);
 			}
+			document.getElementById("rewardslider").value = env.Rarr[selectedCell];
 			showBarChart(qvalues, d3.select('svg'), env.gh);
 			drawGrid(); // redraw
 		}
