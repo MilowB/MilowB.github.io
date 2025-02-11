@@ -746,6 +746,7 @@
 										nsteps_history = nsteps_history.slice(1);
 									}
 									for (var i = 0; i < poss.length; i++) {
+										console.log(cells[selectedCell][poss[i]]);
 										if (selectedCell >= 0 && cells[selectedCell][poss[i]] !== 'undefined' && cells[selectedCell][poss[i]].length >= nflot) {
 											var poss = env.allowedActions(selectedCell);
 											var size = cells[selectedCell][poss[i]].length;
@@ -760,7 +761,7 @@
 					}
 					// keep track of reward history
 					drawGrid(); // draw
-				}, 20);
+				}, 50);
 			} else {
 				$("#startButton").html("Reprendre");
 				flag = true;
@@ -1023,8 +1024,17 @@
 		}
 
 		function onChangeRangeSpeed(value) {
-			steps_per_tick = value * 100;
+			if (value <= 0.10) {
+				steps_per_tick = 1;
+			}
+			else if (value >= 0.90){
+				steps_per_tick = value * 1000;
+			}
+			else {
+				steps_per_tick = value * 100;
+			}
 			save_tick = steps_per_tick;
+			console.log(steps_per_tick);
 			$("#spe").html(Math.round(value * 100) / 100);
 		}
 
@@ -1069,7 +1079,7 @@
 			document.getElementById("bar2").classList.remove("active");
 			document.getElementById("bar3").classList.remove("active");
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton <strong>'Commencer'</strong> lance l'apprentissage. Le bouton <strong>'Exécuter un mouvement'</strong> permet d'exécuter les actions une part une. Vous pouvez découvrir l'effet du paramètre <strong>'epsilon'</strong> permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action pour une case donnée. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
+			modeDescription.innerHTML = "<strong>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton <strong>'Commencer'</strong> lance l'apprentissage. Le bouton <strong>'Exécuter un mouvement'</strong> permet d'exécuter les actions une par une. Vous pouvez découvrir l'effet du paramètre <strong>'epsilon'</strong> permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
 		}
 
 		function switchIntermediateMode() {
@@ -1112,7 +1122,8 @@
 
 	<div class="container" id="wrapWhite" style="margin-top: 100px">
 		<div id="wrapTight">
-			<div class="row" style='text-align: center; font-size: 20px; font-family: "Lucida Console", "Courier New", monospace; font-weight: bold; color: #606467; font-style: italic;'>
+			<div class="row"
+				style='text-align: center; font-size: 20px; font-family: "Lucida Console", "Courier New", monospace; font-weight: bold; color: #606467; font-style: italic;'>
 				Trouvez le plus court chemin vers le diamant tout en évitant les flammes.
 			</div>
 			<div class="row" style="text-align: center; padding:10px; margin-top: 100px;">
@@ -1232,7 +1243,7 @@
 					</div>
 				</div>
 
-				<div class="row" style="margin-top: 25px;">
+				<div class="row" style="margin-top: 15px;">
 					<h3>Nombre d'actions pour atteindre l'objectif :</h3>
 					<div id="flotreward" style="width:100%; height: 250px;"></div>
 				</div>
