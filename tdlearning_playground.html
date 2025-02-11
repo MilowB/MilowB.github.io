@@ -124,28 +124,27 @@
 			reset: function () {
 
 				// hardcoding one gridworld for now
-				this.gh = 7;
+				this.gh = 5;
 				this.gw = 6;
 				this.gs = this.gh * this.gw; // number of states
-				this.finalState = 31;
+				this.finalState = 23;
 				this.minReward = 0;
 				this.maxReward = 0;
 				// specify some rewards
 				var Rarr = R.zeros(this.gs);
 				var T = R.zeros(this.gs);
 				Rarr[this.finalState] = 1.5;
-				Rarr[18] = -0.5;
+				Rarr[14] = -0.5;
 
 				T[4] = 1;
 				T[7] = 1;
-				T[9] = 1;
-				T[10] = 1;
-				T[13] = 1;
+				T[5] = 1;
+				T[8] = 1;
+				T[16] = 1;
+				T[18] = 1;
 				T[22] = 1;
-				T[24] = 1;
-				T[30] = 1;
-				T[35] = 1;
-				T[39] = 1;
+				T[25] = 1;
+				T[29] = 1;
 
 				this.Rarr = Rarr;
 				this.T = T;
@@ -256,6 +255,7 @@
 		var mode = 0;
 
 		var initGrid = function () {
+
 			updateEquation(false);
 			$("#advancedModeHTML").hide();
 			$(".qvaluescharts").hide();
@@ -371,11 +371,11 @@
 		function showBarChart(actionValues, svg, gridSize) {
 			if (barchart) {
 				var chartWidth = 200;  // Largeur de la zone du bar chart
-				var chartHeight = (gridSize - 1) * 50;  // Ajusté à la hauteur de la grille
+				var chartHeight = (gridSize) * 50;  // Ajusté à la hauteur de la grille
 				var margin = { top: 20, right: 20, bottom: 40, left: 50 };
 
 				// Positionnement du graphique
-				var chartX = gridSize * 50 + 50;
+				var chartX = gridSize * 50 + 150;
 				var chartY = 10;
 
 				// Supprime l'ancien graphique s'il existe
