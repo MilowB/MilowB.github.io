@@ -548,7 +548,7 @@
 					if (s === selected) {
 						// highlight selected cell
 						r.attr('fill', '#FF0');
-					} else {
+					} else if ((mode < 2 || previousState < 0 || previousState != s) && state != s) {
 						r.attr('fill', vcol);
 					}
 
@@ -641,6 +641,7 @@
 				//$("#rewardslider").slider('value', env.Rarr[s]);
 			}
 			document.getElementById("rewardslider").value = env.Rarr[selectedCell];
+			updateEquation(false);
 			showBarChart(qvalues, d3.select('svg'), env.gh);
 			drawGrid(); // redraw
 		}
@@ -1027,7 +1028,7 @@
 			if (value <= 0.10) {
 				steps_per_tick = 1;
 			}
-			else if (value >= 0.90){
+			else if (value >= 0.90) {
 				steps_per_tick = value * 1000;
 			}
 			else {
@@ -1055,18 +1056,37 @@
 			nextStateReward = Math.round(nextStateReward * 100) / 100;
 			nextBestActionQvalue = Math.round(nextBestActionQvalue * 100) / 100;
 
-			equationEl.innerHTML = `\\( ${operation} \\hspace{1cm} = \\hspace{1cm} \\textcolor{blueviolet}{${currentQvalue}} \\hspace{1cm} + 
+			equationEl.innerHTML = `
+							<td>\\( ${operation} \\)</td>
+							<td>\\( = \\)</td>
+							<td>\\( \\textcolor{blueviolet}{${currentQvalue}} \\)</td>
+							<td>\\( + \\)</td>
+							<td>\\( \\textcolor{orange}{${agent.alpha}} \\)</td>
+							<td>\\( \\times \\)</td>
+							<td>\\( [ \ \\)</td>
+							<td>\\( \\textcolor{teal}{${nextStateReward}} \\)</td>
+							<td>\\( + \\)</td>
+							<td>\\( \\textcolor{purple}{${agent.gamma}} \\)</td>
+							<td>\\( \\times \\)</td>
+							<td>\\( \\textcolor{blue}{${nextBestActionQvalue}} \\)</td>
+							<td>\\( - \\)</td>
+							<td>\\( \\textcolor{blueviolet}{${currentQvalue}} \\)</td>
+							<td>\\( ] \ \\)</td>			
+			`;
+			/*`	
+			\\( ${operation} \\hspace{1cm} = \\hspace{1cm} \\textcolor{blueviolet}{${currentQvalue}} \\hspace{1cm} + 
 			\\textcolor{orange}{${agent.alpha}} \\times [ \ \\textcolor{teal}{${nextStateReward}} \\hspace{0.5cm} + 
 			\\textcolor{purple}{${agent.gamma}} \\times \\hspace{1.3cm} \\textcolor{blue}{${nextBestActionQvalue}} \\hspace{1.3cm} - 
 			\\textcolor{blueviolet}{${currentQvalue}} ] \ \\)`;
+			*/
 
 			// Reset colors
 			for (var i = 0; i < Object.keys(rs).length; i++) {
 				rs[i].attr("stroke", "#DEDEDE").attr("stroke-width", "2");
 			}
 			if (updateColors && previousState >= 0 && mode > 1) {
-				rs[previousState].attr("stroke", "#B981EF").attr("stroke-width", "8px");
-				rs[state].attr("stroke", "#1900FF").attr("stroke-width", "8px");
+				rs[previousState].attr("fill", "#B981EF");
+				rs[state].attr("fill", "#1900FF");
 			}
 			MathJax.typeset();
 		}
@@ -1115,7 +1135,8 @@
 		<div id="wrapTight">
 			<!--<button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">---- ☰ Tutoriel <---------- </button>-->
 			<div class="w3-container">
-				<h1 style="text-align: center;">Temporal Difference QLearning</h1>
+				<h1 style="text-align: center;">Temporal Difference Learning : <strong
+						style="font-style: italic;">QLearning</strong></h1>
 			</div>
 		</div>
 	</div>
@@ -1194,8 +1215,30 @@
 					</div>
 				</div>
 				<hr />
-				<div class="row" id="advancedModeHTML">
+				<div class="row" id="advancedModeHTML" style="text-align: center;">
 					<h3>Équation utilisée pour mettre à jour les valeurs :</h3>
+					<table style="width:100%; font-size: 25px;">
+						<tr>
+							<td>\( Q(s, a) \)</td>
+							<td>\( \leftarrow \)</td>
+							<td>\( \underbrace{\textcolor{blueviolet}{Q(s, a)}} \)</td>
+							<td>\( + \)</td>
+							<td>\( \underbrace{\textcolor{orange}{\alpha}} \)</td>
+							<td>\( \times \)</td>
+							<td>\( [ \, \)</td>
+							<td>\( \underbrace{\textcolor{teal}{R_{t+1}}} \)</td>
+							<td>\( + \)</td>
+							<td>\( \underbrace{\textcolor{purple}{\gamma}} \)</td>
+							<td>\( \times \)</td>
+							<td>\( \underbrace{\textcolor{blue}{max_{a'}Q(s_{t+1}, a')}} \)</td>
+							<td>\( - \)</td>
+							<td>\( \underbrace{\textcolor{blueviolet}{Q(s, a)}} \)</td>
+							<td>\( ] \, \)</td>
+						</tr>
+						<tr id="equation">
+						</tr>
+					</table>
+					<!--
 					<p style="font-size: 25px;">
 						\( Q(s, a) \leftarrow \textcolor{blueviolet}{Q(s, a)} + \textcolor{orange}{\alpha} \times [ \,
 						\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
@@ -1206,6 +1249,7 @@
 						\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
 						\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
 						\, \)</p>
+					-->
 				</div>
 				<div class="row" id="intermediateModeHTML">
 					<div class="col-sm-6">
