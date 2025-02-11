@@ -556,7 +556,7 @@
 					var rv = env.Rarr[s];
 					var tr = trs[s];
 					if (rv !== 0) {
-						tr.text('R ' + rv.toFixed(1));
+						tr.text('R ' + rv.toFixed(1)).raise();
 					}
 
 					// skip rest for cliff
@@ -1069,7 +1069,7 @@
 			document.getElementById("bar2").classList.remove("active");
 			document.getElementById("bar3").classList.remove("active");
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Mode facile activé.<br>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton 'Commencer' lance l'apprentissage. Le bouton 'Exécuter un mouvement' permet d'exécuter les actions une part une. Vous pouvez découvrir l'effet du paramètre 'epsilon' permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action pour une case donnée. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
+			modeDescription.innerHTML = "<strong>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton <strong>'Commencer'</strong> lance l'apprentissage. Le bouton <strong>'Exécuter un mouvement'</strong> permet d'exécuter les actions une part une. Vous pouvez découvrir l'effet du paramètre <strong>'epsilon'</strong> permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action pour une case donnée. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
 		}
 
 		function switchIntermediateMode() {
@@ -1080,7 +1080,7 @@
 			document.getElementById("bar2").classList.add("active");
 			document.getElementById("bar3").classList.remove("active");
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Mode intermédiaire activé.<br>Objectif : </strong> découvrir les effets des paramètres alpha et gamma. Jouez avec les valeurs et observez les résultats sur le calcul des valeurs des chaque couple (état, action). Quatre nouveaux graphiques présentant l'historique des valeurs vous permettront de mieux appréhender les changements induits par alpha et gamma. Vous devriez observer qu'Alpha influence la vitesse d'apprentissage alors que gamma influence la portée de la propagation des récompenses dans la grille. Essayez de trouver les meilleurs paramètres vous permettant d'accéder à la case objectif avec le moins d'étapes possible.";
+			modeDescription.innerHTML = "<strong>Objectif : </strong> découvrir les effets des paramètres alpha et gamma. Jouez avec les valeurs et observez les résultats sur le calcul des valeurs des chaque couple (état, action). Quatre nouveaux graphiques présentant l'historique des valeurs vous permettront de mieux appréhender les changements induits par alpha et gamma. Vous devriez observer qu'Alpha influence la vitesse d'apprentissage alors que gamma influence la portée de la propagation des récompenses dans la grille. Essayez de trouver les meilleurs paramètres vous permettant d'accéder à la case objectif avec le moins d'étapes possible.";
 		}
 
 		function switchAdvancedMode() {
@@ -1091,7 +1091,7 @@
 			document.getElementById("bar2").classList.remove("active");
 			document.getElementById("bar3").classList.add("active");
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Mode avancé activé.<br>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille en cliquant sur 'Exécuter un mouvement'. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par alpha ou comment la portée des récompenses peut être réduite par gamma.";
+			modeDescription.innerHTML = "<strong>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille en cliquant sur 'Exécuter un mouvement'. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par alpha ou comment la portée des récompenses peut être réduite par gamma.";
 		}
 	</script>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -1101,18 +1101,21 @@
 
 	<!-- Page Content -->
 
-	<div class="w3-teal container" id="wrap">
+	<div class="container" id="wrap" style="background-color: #183D4E; color: white;">
 		<div id="wrapTight">
 			<!--<button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">---- ☰ Tutoriel <---------- </button>-->
-					<div class="w3-container">
-						<h1 style="text-align: center;">Temporal Difference QLearning Playground</h1>
-					</div>
+			<div class="w3-container">
+				<h1 style="text-align: center;">Temporal Difference QLearning</h1>
+			</div>
 		</div>
 	</div>
 
-	<div class="container" id="wrapWhite" style="margin-top: 50px;">
+	<div class="container" id="wrapWhite" style="margin-top: 100px">
 		<div id="wrapTight">
-			<div class="row" style="text-align: center; padding:10px;">
+			<div class="row" style='text-align: center; font-size: 20px; font-family: "Lucida Console", "Courier New", monospace; font-weight: bold; color: #606467; font-style: italic;'>
+				Trouvez le plus court chemin vers le diamant tout en évitant les flammes.
+			</div>
+			<div class="row" style="text-align: center; padding:10px; margin-top: 100px;">
 				<div class="col-sm-12">
 					<ul class="nav nav-tabs">
 						<li role="presentation" id="bar1" class="active" onclick="switchEasyMode()"><a href="#bar1">Mode
@@ -1123,12 +1126,14 @@
 						</li>
 					</ul>
 				</div>
-				<p id="modeDescription" style="font-size: 16px; margin-top: 15px;"></p>
+			</div>
+			<div class="row" style="text-align: justify; padding:10px; font-size: 16px; margin-top: 15px;">
+				<p id="modeDescription"></p>
 			</div>
 		</div>
 	</div>
 
-	<div class="container" id="wrapGrey" style="margin-top: 50px;">
+	<div class="container" id="wrapGrey">
 		<div id="wrapTight">
 			<div class="row" style="text-align: center; margin-top: 25px; margin-bottom: 25px; padding:10px;">
 				<div class="row" style="text-align: center; margin-top: 25px;">
@@ -1251,6 +1256,16 @@
 		</p>
 	</div>
 	<script>
+
+		$('#bar1').on('click', function (e) {
+			e.preventDefault();
+		});
+		$('#bar2').on('click', function (e) {
+			e.preventDefault();
+		});
+		$('#bar3').on('click', function (e) {
+			e.preventDefault();
+		});
 		function w3_open() {
 			document.getElementById("mySidebar").style.display = "block";
 		}
