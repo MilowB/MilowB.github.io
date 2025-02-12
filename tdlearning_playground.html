@@ -370,6 +370,7 @@
 
 		function showBarChart(actionValues, svg, gridSize) {
 			if (barchart) {
+				console.log("test");
 				var chartWidth = 200;  // Largeur de la zone du bar chart
 				var chartHeight = (gridSize) * 50;  // Ajusté à la hauteur de la grille
 				var margin = { top: 20, right: 20, bottom: 40, left: 50 };
@@ -1073,12 +1074,6 @@
 							<td>\\( \\textcolor{blueviolet}{${currentQvalue}} \\)</td>
 							<td>\\( ] \ \\)</td>			
 			`;
-			/*`	
-			\\( ${operation} \\hspace{1cm} = \\hspace{1cm} \\textcolor{blueviolet}{${currentQvalue}} \\hspace{1cm} + 
-			\\textcolor{orange}{${agent.alpha}} \\times [ \ \\textcolor{teal}{${nextStateReward}} \\hspace{0.5cm} + 
-			\\textcolor{purple}{${agent.gamma}} \\times \\hspace{1.3cm} \\textcolor{blue}{${nextBestActionQvalue}} \\hspace{1.3cm} - 
-			\\textcolor{blueviolet}{${currentQvalue}} ] \ \\)`;
-			*/
 
 			// Reset colors
 			for (var i = 0; i < Object.keys(rs).length; i++) {
@@ -1099,7 +1094,7 @@
 			document.getElementById("bar2").classList.remove("active");
 			document.getElementById("bar3").classList.remove("active");
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton <strong>'Commencer'</strong> lance l'apprentissage. Le bouton <strong>'Exécuter un mouvement'</strong> permet d'exécuter les actions une par une. Vous pouvez découvrir l'effet du paramètre <strong>'epsilon'</strong> permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
+			modeDescription.innerHTML = "<strong>Objectif : </strong> prendre en main le bac à sable avec un nombre de paramètres réduit. Le bouton <strong style='font-style: italic;'>'Commencer'</strong> lance l'apprentissage. Le bouton <strong style='font-style: italic;'>'Exécuter un mouvement'</strong> permet d'exécuter les actions une par une. Vous pouvez découvrir l'effet du paramètre <strong> &epsilon; </strong> permettant à l'agent d'explorer la grille au lieu d'exécuter l'action prédominante (la flèche). Vous pouvez également cliquer sur une case et observer la valeur de chaque action. Plus la valeur est haute, plus l'action est intéressante. En cliquant sur une case, vous verrez que vous pouvez modifier la valeur de récompense associée à celle-ci. Une forte récompense incite l'agent à se déplacer sur cette case. Au contraire une récompense négative l'incite à l'éviter.<br><br> Lorsque l'agent (le point bleu) choisi sa prochaine action, il a une probabilité epsilon d'exécuter une action aléatoire à la place. Ce mécanisme lui permet d'explorer des nouvelles cases de la grille qu'il n'aurait pas découvert autrement.";
 		}
 
 		function switchIntermediateMode() {
@@ -1110,7 +1105,7 @@
 			document.getElementById("bar2").classList.add("active");
 			document.getElementById("bar3").classList.remove("active");
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Objectif : </strong> découvrir les effets des paramètres alpha et gamma. Jouez avec les valeurs et observez les résultats sur le calcul des valeurs des chaque couple (état, action). Quatre nouveaux graphiques présentant l'historique des valeurs vous permettront de mieux appréhender les changements induits par alpha et gamma. Vous devriez observer qu'Alpha influence la vitesse d'apprentissage alors que gamma influence la portée de la propagation des récompenses dans la grille. Essayez de trouver les meilleurs paramètres vous permettant d'accéder à la case objectif avec le moins d'étapes possible.";
+			modeDescription.innerHTML = "<strong>Objectif : </strong> découvrir les effets des paramètres <strong>&alpha;</strong> et <strong>&gamma;</strong>. Jouez avec les valeurs et observez les résultats sur le calcul des valeurs des chaque couple (état, action). Quatre nouveaux graphiques présentant l'historique des valeurs vous permettront de mieux appréhender les changements induits par \<strong> &alpha; </strong> et <strong> &gamma; </strong>. Vous devriez observer que <strong> &alpha; </strong> influence la vitesse d'apprentissage alors que <strong> &gamma; </strong> influence la portée de la propagation des récompenses dans la grille. Essayez de trouver les meilleurs paramètres vous permettant d'accéder à la case objectif avec le moins d'étapes possible.";
 		}
 
 		function switchAdvancedMode() {
@@ -1121,7 +1116,7 @@
 			document.getElementById("bar2").classList.remove("active");
 			document.getElementById("bar3").classList.add("active");
 			let modeDescription = document.getElementById("modeDescription");
-			modeDescription.innerHTML = "<strong>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille en cliquant sur 'Exécuter un mouvement'. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par alpha ou comment la portée des récompenses peut être réduite par gamma.";
+			modeDescription.innerHTML = "<strong>Objectif : </strong> vous découvrez maintenant l'équation permettant de mettre à jour les valeurs de la grille. Vous pouvez voir étape par étape le calcul effectué avec les nombres de la grille en cliquant sur <strong style='font-style: italic;'>Exécuter un mouvement</strong>. Vous devriez mieux comprendre pourquoi les valeurs des actions convergent et de quelle manière leur convergence peut être accélérée par <strong>&alpha;</strong> ou comment la portée des récompenses peut être réduite par <strong>&gamma;</strong>.";
 		}
 	</script>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -1145,7 +1140,7 @@
 		<div id="wrapTight">
 			<div class="row"
 				style='text-align: center; font-size: 20px; font-family: "Lucida Console", "Courier New", monospace; font-weight: bold; color: #606467; font-style: italic;'>
-				Trouvez le plus court chemin vers le diamant tout en évitant les flammes.
+				Trouvez le plus court chemin vers le diamant tout en évitant les flammes. 
 			</div>
 			<div class="row" style="text-align: center; padding:10px; margin-top: 100px;">
 				<div class="col-sm-12">
@@ -1185,7 +1180,7 @@
 						<input id="speed" type="range" min="0" max="1" value="0.20" step="0.01" style="width: 100%;">
 					</div>
 					<div class="col-sm-6">
-						Exploration (epsilon) : <span id="eps">0.20</span>
+						Exploration <strong>&epsilon;</strong> : <span id="eps">0.20</span>
 						<input id="slider" type="range" min="0" max="1" value="0.15" step="0.01" style="width: 100%;">
 					</div>
 				</div>
@@ -1215,7 +1210,7 @@
 					</div>
 				</div>
 				<hr />
-				<div class="row" id="advancedModeHTML" style="text-align: center;">
+				<div class="row" id="advancedModeHTML" style="text-align: center; margin-bottom: 75px">
 					<h3>Équation utilisée pour mettre à jour les valeurs :</h3>
 					<table style="width:100%; font-size: 25px;">
 						<tr>
@@ -1238,27 +1233,16 @@
 						<tr id="equation">
 						</tr>
 					</table>
-					<!--
-					<p style="font-size: 25px;">
-						\( Q(s, a) \leftarrow \textcolor{blueviolet}{Q(s, a)} + \textcolor{orange}{\alpha} \times [ \,
-						\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
-						\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
-						\, \)</p>
-					<p id="equation" style="font-size: 25px;">
-						\( Q(s, a) \leftarrow \textcolor{blueviolet}{Q(s, a)} + \textcolor{orange}{\alpha} \times [ \,
-						\textcolor{teal}{R_{t+1}} + \textcolor{purple}{\gamma} \times
-						\textcolor{blue}{max_{a'}Q(s_{t+1}, a')} - \textcolor{blueviolet}{Q(s, a)} ]
-						\, \)</p>
-					-->
+					<hr />
 				</div>
 				<div class="row" id="intermediateModeHTML">
 					<div class="col-sm-6">
-						Taux d'apprentissage (alpha) : <span id="alpha">0.10</span>
+						Taux d'apprentissage <strong>\( \alpha \) : <span id="alpha">0.10</span></strong>
 						<input id="alphaSlider" type="range" min="0" max="1" value="0.10" step="0.01"
 							style="width: 100%; text-align: center;">
 					</div>
 					<div class="col-sm-6">
-						Facteur de réduction (gamma) : <span id="gamma">0.9</span>
+						Facteur de réduction <strong>\( \gamma \) : <span id="gamma">0.9</span></strong>
 						<input id="gammaSlider" type="range" min="0" max="1" value="0.90" step="0.01"
 							style="width: 100%;">
 					</div>
