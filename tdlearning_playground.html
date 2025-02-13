@@ -348,16 +348,6 @@
 						.attr('stroke-width', 2);
 					rs[s] = r;
 
-					// Affichage de l'image sur une case spécifique (ex: en haut à gauche)
-					/*if (x === 0 && y === 0) {
-						g.append('image')
-							.attr('x', xcoord)
-							.attr('y', ycoord)
-							.attr('width', cs)
-							.attr('height', cs)
-							.attr('href', 'images/fire.svg'); // Remplace par l'URL de ton image
-					}*/
-
 					// reward text
 					var tr = g.append('text')
 						.attr('x', xcoord + 5)
@@ -401,7 +391,6 @@
 				.attr('fill', '#327BB5')
 				.attr('stroke', '#000')
 				.attr('id', 'cpos');
-			//.attr('href', 'images/fire.svg');
 
 		}
 
@@ -539,26 +528,26 @@
 
 						d3.select('svg')
 							.append('image')
-							.attr('x', xcoord)
-							.attr('y', ycoord)
+							.attr('x', xcoord + 5)
+							.attr('y', ycoord - 5)
 							.attr('s', s)
-							.attr('width', cs)
-							.attr('height', cs)
+							.attr('width', cs - 10)
+							.attr('height', cs - 10)
 							.attr('href', 'images/fire.svg')
 							.style('pointer-events', 'none') // Empêche l'image d'interférer avec les clics$
-							.attr('opacity', '0.75');
+							.attr('opacity', '0.80');
 					}
 					else if (s == env.finalState) {
 						d3.select('svg')
 							.append('image')
-							.attr('x', xcoord)
-							.attr('y', ycoord)
+							.attr('x', xcoord + 10)
+							.attr('y', ycoord + 2)
 							.attr('s', s)
-							.attr('width', cs)
-							.attr('height', cs)
+							.attr('width', cs - 20)
+							.attr('height', cs - 20)
 							.attr('href', 'images/gem.svg')
 							.style('pointer-events', 'none') // Empêche l'image d'interférer avec les clics$
-							.attr('opacity', '0.75');
+							.attr('opacity', '0.80');
 					}
 
 					// get value of state s under agent policy
