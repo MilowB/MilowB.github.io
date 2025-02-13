@@ -49,6 +49,18 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
 	<style>
+		@media only screen and (max-width: 1000px) {
+			.smallScreenMessage {
+				display: inline !important;
+				text-align: center;
+				color: red;
+			}
+		}
+
+		.smallScreenMessage {
+			display: none;
+		}
+
 		#wrap {
 			width: 100%;
 			margin-left: auto;
@@ -89,6 +101,8 @@
 
 		body {
 			font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+			overflow-x: hidden;
+			/* Empêche le débordement horizontal */
 		}
 
 		#draw {
@@ -1103,14 +1117,15 @@
 		}
 
 		function updateEquation(updateColors) {
-			let equationEl = document.getElementById("equation");
-			var operation = Math.round((currentQvalue + agent.alpha * (nextStateReward + agent.gamma * nextBestActionQvalue - currentQvalue)) * 100) / 100;
+			if (selectedCell > 0) {
+				let equationEl = document.getElementById("equation");
+				var operation = Math.round((currentQvalue + agent.alpha * (nextStateReward + agent.gamma * nextBestActionQvalue - currentQvalue)) * 100) / 100;
 
-			currentQvalue = Math.round(currentQvalue * 100) / 100;
-			nextStateReward = Math.round(nextStateReward * 100) / 100;
-			nextBestActionQvalue = Math.round(nextBestActionQvalue * 100) / 100;
+				currentQvalue = Math.round(currentQvalue * 100) / 100;
+				nextStateReward = Math.round(nextStateReward * 100) / 100;
+				nextBestActionQvalue = Math.round(nextBestActionQvalue * 100) / 100;
 
-			equationEl.innerHTML = `
+				equationEl.innerHTML = `
 							<td>\\( ${operation} \\)</td>
 							<td>\\( = \\)</td>
 							<td>\\( \\textcolor{blueviolet}{${currentQvalue}} \\)</td>
@@ -1127,6 +1142,7 @@
 							<td>\\( \\textcolor{blueviolet}{${currentQvalue}} \\)</td>
 							<td>\\( ] \ \\)</td>			
 			`;
+			}
 
 			// Reset colors
 			for (var i = 0; i < Object.keys(rs).length; i++) {
@@ -1190,6 +1206,8 @@
 			<div class="col-sm-6">
 				<h1 style="text-align: center;">Temporal Difference Learning : <strong
 						style="font-style: italic;">QLearning</strong></h1>
+				<h1 class="smallScreenMessage"><strong>Attention : ce site n'est pas adapté à une utilisation mobile ou
+						tablette !</strong></h1>
 			</div>
 			<div class="col-sm-3">
 			</div>
