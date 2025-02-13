@@ -49,7 +49,13 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
 	<style>
-		@media only screen and (max-width: 1000px) {
+		@media only screen and (max-width: 1370px) {
+			.image {
+				display: none !important;
+			}
+		}
+
+		@media only screen and (max-width: 1110px) {
 			.smallScreenMessage {
 				display: inline !important;
 				text-align: center;
@@ -127,11 +133,14 @@
 			width: 30px;
 			height: 30px;
 			pointer-events: none;
+			position: relative;
+			left: -15px;
 		}
 
 		.image {
 			position: relative;
-			transition: all 1s;
+			width: 30px;
+			left:10%;
 		}
 
 		.image:hover:after {
@@ -139,9 +148,9 @@
 			content: attr(txt);
 			display: inline-block;
 			padding: 5px;
-			top: 25px;
-			left: 50px;
-			width: 75%;
+			top: 50px;
+			left: -100px;
+			width: 350px;
 			background-color: black;
 			color: white;
 		}
@@ -1106,7 +1115,6 @@
 		}
 
 		function updateEquation(updateColors) {
-			if (selectedCell > 0) {
 				let equationEl = document.getElementById("equation");
 				var operation = Math.round((currentQvalue + agent.alpha * (nextStateReward + agent.gamma * nextBestActionQvalue - currentQvalue)) * 100) / 100;
 
@@ -1131,7 +1139,6 @@
 							<td>\\( \\textcolor{blueviolet}{${currentQvalue}} \\)</td>
 							<td>\\( ] \ \\)</td>			
 			`;
-			}
 
 			// Reset colors
 			for (var i = 0; i < Object.keys(rs).length; i++) {
@@ -1314,11 +1321,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" id="advancedModeHTML">
 			<div class="col-sm-3">
 			</div>
 			<div class="col-sm-6">
-				<div class="row" id="advancedModeHTML" style="text-align: center; margin-bottom: 75px">
+				<div class="row" style="text-align: center; margin-bottom: 75px">
 					<h3>Équation utilisée pour mettre à jour les valeurs :</h3>
 					<table style="width:100%; font-size: 25px;">
 						<tr>
@@ -1344,14 +1351,16 @@
 					<hr />
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-3 image" style="position: relative; top: 60px;"
+				txt="Q(s, a) représente la valeur d'une action 'a' dans un état 's', R est la récompense à un instant 't', et maxQ(s, a) est la récompense maximum obtenable par une action dans un état 's' et un instant 't'.">
+				<img id="questionMarkMode1" src="images/question_mark.svg" class="questionmak_img" />
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" id="intermediateModeHTML">
 			<div class="col-sm-3">
 			</div>
 			<div class="col-sm-6">
-				<div class="row" id="intermediateModeHTML">
+				<div class="row">
 					<div class="col-sm-6">
 						Taux d'apprentissage <strong>\( \alpha \) : <span id="alpha">0.10</span></strong>
 						<input id="alphaSlider" type="range" min="0" max="1" value="0.10" step="0.01"
@@ -1364,7 +1373,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-3 image"
+			<div class="col-sm-3 image" style="position: relative; top: 15px;"
 				txt="&alpha; contrôle la vitesse à laquelle les nouvelles informations remplacent les anciennes. S'il est élevé, les nouvelles expériences sont fortement prises en compte. Quant à lui, &gamma; détermine l'importance des récompenses futures par rapport aux récompenses immédiates. S'il est proche de 0, l'agent se concentre principalement sur les récompenses proches.">
 				<img id="questionMarkMode1" src="images/question_mark.svg" class="questionmak_img" />
 			</div>
