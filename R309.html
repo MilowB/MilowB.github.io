@@ -127,14 +127,7 @@
 								Laissard</a></td>
 					</tr>
 				</table>
-				<script>
-					if (currentDate.getMonth() < 8 || (currentDate.getMonth() === 8 && currentDate.getDate() < 22)) {
-						$('.print-correction').css('display', 'none');
-					}
-					else {
-						$('.print-correction').css('display', 'block');
-					}
-				</script>
+
 				<h2 class="major">Exercices en plus</h2>
 				Une sélection d'exercices (partiellement corrigés) à faire à la maison pour renforcer votre
 				compréhension. Ceux-ci sont triés par ordre croissant de difficulté.
@@ -165,16 +158,23 @@
 					<tr>
 						<td><a style="color:red" href="Enseignements/Cryptographie/TP2.pdf">TP#2</a></td>
 						<td><a class="print-correction" style="color:red"
-							href="Enseignements/Cryptographie/tp2_correction.py">Correction complète</a></td>
+								href="Enseignements/Cryptographie/tp2_correction.py">Correction complète</a></td>
 					</tr>
 					<tr>
 						<td><a style="color:red" href="Enseignements/Cryptographie/TP3.pdf">TP#3</a></td>
 						<td><a style="color:red" class="print-correction" style="color:red"
-							href="Enseignements/Cryptographie/TP3_correction.pdf">Correction partielle</a></td>
+								href="Enseignements/Cryptographie/TP3_correction.pdf">Correction partielle</a></td>
 					</tr>
 				</table>
 			</article>
-
+			<script>
+				if (currentDate.getMonth() < 8 || (currentDate.getMonth() === 8 && currentDate.getDate() < 22)) {
+					$('.print-correction').css('display', 'none');
+				}
+				else {
+					$('.print-correction').css('display', 'block');
+				}
+			</script>
 			<article id="Examen">
 				<h2 class="major">TP noté</h2>
 				<ul>
