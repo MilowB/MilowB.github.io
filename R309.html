@@ -128,7 +128,7 @@
 					</tr>
 				</table>
 				<script>
-					if (currentDate.getMonth() < 10) {
+					if (currentDate.getMonth() < 8 || (currentDate.getMonth() === 8 && currentDate.getDate() < 22)) {
 						$('.print-correction').css('display', 'none');
 					}
 					else {
@@ -164,11 +164,13 @@
 					</tr>
 					<tr>
 						<td><a style="color:red" href="Enseignements/Cryptographie/TP2.pdf">TP#2</a></td>
-						<!-- <td><a style="color:red" href="Enseignements/Cryptographie/tp2_correction.py">Correction complète</a></td> -->
+						<td><a class="print-correction" style="color:red"
+							href="Enseignements/Cryptographie/tp2_correction.py">Correction complète</a></td>
 					</tr>
 					<tr>
 						<td><a style="color:red" href="Enseignements/Cryptographie/TP3.pdf">TP#3</a></td>
-						<!-- <td><a style="color:red" href="Enseignements/Cryptographie/TP3_correction.pdf">Correction partielle</a></td> -->
+						<td><a style="color:red" class="print-correction" style="color:red"
+							href="Enseignements/Cryptographie/TP3_correction.pdf">Correction partielle</a></td>
 					</tr>
 				</table>
 			</article>
