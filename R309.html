@@ -117,24 +117,22 @@
 					</tr>
 					<tr>
 						<td><a style="color:red" href="Enseignements/Cryptographie/TD1.pdf">TD#1</a></td>
-						<td><a id="print-correction1" style="color:red"
+						<td><a class="print-correction" style="color:red"
 								href="Enseignements/Cryptographie/TD1_correction.pdf">Correction complète</a></td>
 					</tr>
 					<tr>
 						<td><a style="color:red" href="Enseignements/Cryptographie/TD2.pdf">TD#2</a></td>
-						<td><a id="print-correction2" style="color:red"
+						<td><a class="print-correction" style="color:red"
 								href="Enseignements/Cryptographie/TD2_correction.pdf">Correction complète par Gérard
 								Laissard</a></td>
 					</tr>
 				</table>
 				<script>
-					if (currentDate.getMonth() < 11) {
-						$('#print-correction1').css('display', 'none');
-						$('#print-correction2').css('display', 'none');
+					if (currentDate.getMonth() < 10) {
+						$('.print-correction').css('display', 'none');
 					}
 					else {
-						$('#print-correction1').css('display', 'block');
-						$('#print-correction2').css('display', 'block');
+						$('.print-correction').css('display', 'none');
 					}
 				</script>
 				<h2 class="major">Exercices en plus</h2>
