@@ -22,8 +22,9 @@
 		return output.join('\n');
 	}
 
-	function scopedD3(host, tooltip) {
+	function scopedD3(host, tooltip, svgElement) {
 		function resolve(selector) {
+			if (selector === 'svg') return svgElement;
 			return selector === '.tooltip' ? tooltip : host.querySelector(selector);
 		}
 		return Object.assign({}, d3, {
@@ -38,6 +39,27 @@
 		var host = svgElement.parentNode;
 		var scope = 'chart-source-' + index;
 		host.classList.add(scope);
+		var fullscreenButton = host.querySelector('.chart-fullscreen');
+
+		if (fullscreenButton) {
+			fullscreenButton.addEventListener('click', function () {
+				if (document.fullscreenElement === host) {
+					document.exitFullscreen();
+				} else if (host.requestFullscreen) {
+					host.requestFullscreen();
+				}
+			});
+
+			document.addEventListener('fullscreenchange', function () {
+				var isFullscreen = document.fullscreenElement === host;
+				fullscreenButton.setAttribute('aria-pressed', String(isFullscreen));
+				fullscreenButton.setAttribute('aria-label', isFullscreen ? 'Quitter le plein écran' : 'Afficher le graphique en plein écran');
+				fullscreenButton.title = isFullscreen ? 'Quitter le plein écran' : 'Afficher le graphique en plein écran';
+				if (host._chartTooltip) {
+					(isFullscreen ? host : document.body).appendChild(host._chartTooltip);
+				}
+			});
+		}
 
 		return fetch(svgElement.dataset.source).then(function (response) {
 			if (!response.ok) throw new Error(response.status + ' ' + response.statusText);
@@ -59,13 +81,14 @@
 			tooltip.className = 'chart-tooltip';
 			tooltip.style.zIndex = '10000';
 			document.body.appendChild(tooltip);
+			host._chartTooltip = tooltip;
 
 			svgElement.replaceChildren();
-			new Function('d3', script.textContent)(scopedD3(host, tooltip));
+			new Function('d3', script.textContent)(scopedD3(host, tooltip, svgElement));
 		}).catch(function (error) {
 			var message = document.createElement('p');
 			message.textContent = 'Impossible de charger le graphique (' + error.message + ').';
-			host.replaceChildren(message);
+			host.appendChild(message);
 		});
 	}
 

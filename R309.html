@@ -235,7 +235,15 @@
 				<br><br>La ligne <balise style="color: green;">VERTE</balise> représente la proportion d'étudiants qui ont trouvés les explications claires et qui ont estimés avoir compris le cours.
 				<br>La ligne <balise style="color: red;">ROUGE</balise> représente la proportion d'étudiants qui n'ont PAS trouvé les explications claires et qui pensent ne PAS avoir compris le cours.
 				<br>Les post-it indiquent ce qui a changé dans le cours durant l'année concernée.
-				<div class="chart-container"><svg class="source-chart" data-source="assets/charts/clarte-des-explications_sentiment-de-comprehension.html" role="img" aria-label="Évolution des profils d'étudiants selon la clarté des explications et le sentiment de compréhension, de 2022 à 2026"></svg></div>
+				<div class="chart-container cluster-chart-container">
+					<button class="chart-fullscreen" type="button" aria-label="Afficher le graphique en plein écran" title="Afficher le graphique en plein écran">
+						<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+							<path class="fullscreen-expand" d="M3 9V3h6 M15 3h6v6 M21 15v6h-6 M9 21H3v-6"></path>
+							<path class="fullscreen-collapse" d="M9 3v6H3 M15 3h6v6 M21 15h-6v6 M9 21v-6H3"></path>
+						</svg>
+					</button>
+					<svg class="source-chart" data-source="assets/charts/clarte-des-explications_sentiment-de-comprehension.html" role="img" aria-label="Évolution des profils d'étudiants selon la clarté des explications et le sentiment de compréhension, de 2022 à 2026"></svg>
+				</div>
 				<br><br>La propotion d'étudiants dans le profil <balise style="color: green;">vert</balise> augmente au fil des années, tandis que la proportion d'étudiants en <balise style="color: red;">rouge</balise> diminue. <strong>Comment expliquer ce phénomène ?</strong>
 				<br>Quelques possibilités en vrac :
 				<br>(1) La répétition du cours d'une année à l'autre permet d'améliorer la qualité des explications
