@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Évolution des réponses</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { margin: 0; padding: 24px; color: #172033; background: #f4f7fb;
+            font: 14px Inter, system-ui, sans-serif; }
+        main { max-width: 1100px; margin: auto; padding: 22px; background: white;
+            border: 1px solid #e0e7f0; border-radius: 16px;
+            box-shadow: 0 8px 28px #243b530d; }
+        h1 { margin: 0 0 16px; font-size: 20px; }
+        svg { display: block; width: 100%; height: auto; overflow: visible; }
+        .axis text { fill: #526078; font-size: 12px; }
+        .axis path, .axis line { stroke: #cbd5e1; }
+        .grid .tick line { stroke: #e8edf4; }
+        .grid path { display: none; }
+        .axis-label { fill: #526078; font-size: 13px; }
+        .average-line { fill: none; stroke: #1f77b4; stroke-width: 2.5; }
+        .average-dot { fill: #1f77b4; stroke: white; stroke-width: 2; }
+        .average-label { fill: #26344b; font-size: 12px; text-anchor: middle; }
+        .missing-label { fill: #c0392b; }
+        .video-line { fill: none; stroke: #e67e22; stroke-width: 2;
+            stroke-dasharray: 6 4; }
+        .video-dot { fill: #e67e22; stroke: white; stroke-width: 2; }
+        .video-axis text, .video-axis-label { fill: #c56b16; }
+        .legend { fill: #526078; font-size: 12px; }
+        @media (max-width: 600px) { body { padding: 10px; } main { padding: 14px; } }
+    </style>
+</head>
+<body>
+    <main>
+        <h1 id="chart-title"></h1>
+        <svg role="img" aria-labelledby="chart-title" viewBox="0 0 960 500"></svg>
+    </main>
+    <script>
+        const data = [{"year": 2023, "average": 3.116883116883117, "total": 77, "no_percentage": null}, {"year": 2024, "average": 3.6615384615384614, "total": 65, "no_percentage": null}, {"year": 2025, "average": 3.3376623376623376, "total": 77, "no_percentage": null}, {"year": 2026, "average": 3.6666666666666665, "total": 45, "no_percentage": null}];
+        const title = "Evaluez votre niveau d'acquisition";
+        const hasVideoSeries = false;
+        const svg = d3.select("svg");
+        const width = 960;
+        const height = 500;
+        const margin = { top: 42, right: hasVideoSeries ? 82 : 30, bottom: 76, left: 76 };
+        const plotWidth = width - margin.left - margin.right;
+        const plotHeight = height - margin.top - margin.bottom;
+        d3.select("#chart-title").text(title);
+
+        const chart = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+        const years = data.map(d => d.year);
+        const x = d3.scaleLinear()
+            .domain([d3.min(years) - 0.25, d3.max(years) + 0.25])
+            .range([0, plotWidth]);
+        const y = d3.scaleLinear().domain([1, 6]).range([plotHeight, 0]);
+
+        chart.append("g").attr("class", "axis grid")
+            .call(d3.axisLeft(y).tickValues([1, 2, 3, 4, 5, 6])
+                .tickSize(-plotWidth).tickFormat(""));
+        chart.append("g").attr("class", "axis")
+            .call(d3.axisLeft(y).tickValues([1, 2, 3, 4, 5, 6]));
+        chart.append("g").attr("class", "axis")
+            .attr("transform", `translate(0,${plotHeight})`)
+            .call(d3.axisBottom(x).tickValues(years).tickFormat(d3.format("d")));
+        chart.append("text").attr("class", "axis-label")
+            .attr("transform", "rotate(-90)").attr("x", -plotHeight / 2)
+            .attr("y", -54).attr("text-anchor", "middle").text("Average score");
+        chart.append("text").attr("class", "axis-label")
+            .attr("x", plotWidth / 2).attr("y", plotHeight + 52)
+            .attr("text-anchor", "middle").text("Year");
+
+        const averageLine = d3.line().defined(d => d.average != null)
+            .x(d => x(d.year)).y(d => y(d.average));
+        chart.append("path").datum(data).attr("class", "average-line")
+            .attr("d", averageLine);
+        chart.selectAll("circle.average-dot").data(data.filter(d => d.average != null))
+            .join("circle").attr("class", "average-dot")
+            .attr("cx", d => x(d.year)).attr("cy", d => y(d.average)).attr("r", 5);
+
+        chart.selectAll("text.average-label").data(data).join("text")
+            .attr("class", d => `average-label${d.average == null ? " missing-label" : ""}`)
+            .attr("x", d => x(d.year))
+            .attr("y", d => d.average == null ? y(1.05) - 10 : y(d.average) - 12)
+            .selectAll("tspan").data(d => [
+                { text: d.average == null ? "n/a" : d.average.toFixed(2), row: 0 },
+                { text: `(n=${d.total})`, row: 1 },
+            ]).join("tspan").attr("x", function() { return this.parentNode.getAttribute("x"); })
+            .attr("dy", d => d.row === 0 ? 0 : 15).text(d => d.text);
+
+        if (hasVideoSeries) {
+            const percent = d3.scaleLinear().domain([0, 100]).range([plotHeight, 0]);
+            chart.append("g").attr("class", "axis video-axis")
+                .attr("transform", `translate(${plotWidth},0)`)
+                .call(d3.axisRight(percent).ticks(5).tickFormat(d => `${d}%`));
+            chart.append("text").attr("class", "axis-label video-axis-label")
+                .attr("transform", "rotate(-90)").attr("x", -plotHeight / 2)
+                .attr("y", plotWidth + 66).attr("text-anchor", "middle")
+                .text('Pourcentage de "Non, vidéo non regardée" (%)');
+            const percentLine = d3.line().defined(d => d.no_percentage != null)
+                .x(d => x(d.year)).y(d => percent(d.no_percentage));
+            chart.append("path").datum(data).attr("class", "video-line")
+                .attr("d", percentLine);
+            chart.selectAll("circle.video-dot").data(data)
+                .join("circle").attr("class", "video-dot")
+                .attr("cx", d => x(d.year)).attr("cy", d => percent(d.no_percentage)).attr("r", 4);
+            chart.append("text").attr("class", "legend")
+                .attr("x", plotWidth - 4).attr("y", -20).attr("text-anchor", "end")
+                .text('% "Non"');
+        }
+    </script>
+</body>
+</html>
