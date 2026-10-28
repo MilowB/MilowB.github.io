@@ -73,7 +73,12 @@
                 return clarity && clarity.value > 5 ? "highlight-green" : "";
             }
             if (isGreenPoint) return "highlight-green";
-            if (redChain.some(([year, share]) => year === point[0] && share === point[1])) return "highlight-red";
+            const isRedPoint = redChain.some(([year, share]) => year === point[0] && share === point[1]);
+            if (isRedPoint && d.year === 2025 && point[1] === 30) {
+                const clarity = d.criteria.find(c => c.label === "Clarté des explications");
+                return clarity && clarity.value > 4 ? "highlight-red" : "";
+            }
+            if (isRedPoint) return "highlight-red";
             return "";
         }
 
