@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profils de clusters par année</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root { color-scheme: light; font-family: Inter, system-ui, sans-serif; color: #172033; }
+        body { margin: 0; background: #f4f7fb; }
+        header { padding: 24px 30px 12px; }
+        h1 { margin: 0 0 7px; font-size: 22px; }
+        p { margin: 0; color: #61708a; font-size: 14px; }
+        .canvas { margin: 12px 20px 24px; overflow: auto; border: 1px solid #e0e7f0;
+            border-radius: 16px; background: white; box-shadow: 0 8px 28px #243b530d; }
+        svg { display: block; }
+        .link { fill: none; stroke: #8090a8; stroke-opacity: .58; }
+        .link.highlight-green { stroke: #16a34a; stroke-opacity: 1; }
+        .link.highlight-red { stroke: #dc2626; stroke-opacity: 1; }
+        .link-label { fill: #53627a; font-size: 12px; text-anchor: middle; }
+        .node circle { stroke: white; stroke-width: 3px; cursor: grab; }
+        .node:active circle { cursor: grabbing; }
+        .node-label { fill: white; font-size: 14px; font-weight: 750; text-anchor: middle;
+            dominant-baseline: central; pointer-events: none; }
+        .criteria-card { pointer-events: none; }
+        .criteria-card rect { fill: #ffffff; stroke: #dce4ee; stroke-width: 1.2px;
+            filter: drop-shadow(0 3px 5px #17203312); }
+        .criteria-label { fill: #53627a; font-size: 10px; dominant-baseline: central; }
+        .criteria-value { fill: #26344b; font-size: 10px; font-weight: 700;
+            text-anchor: end; dominant-baseline: central; }
+        .criteria-swatch { stroke: #ffffff; stroke-width: 1px; }
+        .year-label { fill: #34425a; font-size: 18px; font-weight: 700; text-anchor: middle; }
+        .year-note { box-sizing: border-box; width: 180px; height: 92px; padding: 10px 11px;
+            overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; background: #fff2a8;
+            border: 1px solid #eed66e; border-left: 4px solid #e9c84c; border-radius: 3px;
+            color: #594b20; font: 12px/1.35 Inter, system-ui, sans-serif;
+            box-shadow: 2px 4px 8px #56491d25; transform: rotate(-1deg); }
+        .year-note.placeholder { color: #98864a; font-style: italic; }
+        .tooltip { position: fixed; pointer-events: none; opacity: 0; padding: 10px 12px;
+            border-radius: 9px; color: white; background: #172033; font-size: 13px;
+            line-height: 1.5; box-shadow: 0 5px 18px #17203330; }
+        .hint { margin-left: 30px; color: #718096; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Évolution des profils de clusters</h1>
+           <p>Un nœud représente un profil d'étudiant; le pourcentage représente sa part des répondants.
+               À gauche, les moyennes des critères sont colorées du rouge (0) au vert (6).
+               Les liens relient les profils les plus proches entre deux années consécutives.</p>
+    </header>
+    <div class="canvas"><svg role="img" aria-label="Graphe des clusters par année"
+            width="2050" height="720" viewBox="0 0 2050 720"></svg></div>
+    <div class="hint">Glisser pour déplacer les nœuds · molette ou glisser le fond pour zoomer et se déplacer</div>
+    <div class="tooltip"></div>
+    <script>
+        const data = {"nodes": [{"id": "2022-1", "year": 2022, "group": 1, "share": 0.4880952380952381, "count": 41, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}], "x": 260, "y": 110.0, "color": "#1f77b4"}, {"id": "2022-2", "year": 2022, "group": 2, "share": 0.39285714285714285, "count": 33, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 2.0, "colorValue": 4.0}], "x": 260, "y": 320.0, "color": "#468fc1"}, {"id": "2022-3", "year": 2022, "group": 3, "share": 0.11904761904761904, "count": 10, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 0.7, "colorValue": 1.4}], "x": 260, "y": 530.0, "color": "#6da7ce"}, {"id": "2023-1", "year": 2023, "group": 1, "share": 0.5194805194805194, "count": 40, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}], "x": 680, "y": 110.0, "color": "#ff7f0e"}, {"id": "2023-2", "year": 2023, "group": 2, "share": 0.36363636363636365, "count": 28, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 2.0, "colorValue": 4.0}], "x": 680, "y": 320.0, "color": "#ff9538"}, {"id": "2023-3", "year": 2023, "group": 3, "share": 0.11688311688311688, "count": 9, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 0.7777777777777778, "colorValue": 1.5555555555555556}], "x": 680, "y": 530.0, "color": "#ffac62"}, {"id": "2024-4", "year": 2024, "group": 4, "share": 0.3384615384615385, "count": 22, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 1.7727272727272727, "colorValue": 3.5454545454545454}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.363636363636363, "colorValue": 4.363636363636363}], "x": 1100, "y": 110.0, "color": "#2ca02c"}, {"id": "2024-3", "year": 2024, "group": 3, "share": 0.3076923076923077, "count": 20, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 1.8, "colorValue": 3.6}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.95, "colorValue": 2.95}], "x": 1100, "y": 250.0, "color": "#45ab45"}, {"id": "2024-2", "year": 2024, "group": 2, "share": 0.24615384615384617, "count": 16, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.4375, "colorValue": 4.4375}], "x": 1100, "y": 390.0, "color": "#5db65d"}, {"id": "2024-1", "year": 2024, "group": 1, "share": 0.1076923076923077, "count": 7, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.7142857142857144, "colorValue": 2.7142857142857144}], "x": 1100, "y": 530.0, "color": "#76c176"}, {"id": "2025-2", "year": 2025, "group": 2, "share": 0.33766233766233766, "count": 26, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.5, "colorValue": 2.5}], "x": 1520, "y": 110.0, "color": "#d62728"}, {"id": "2025-4", "year": 2025, "group": 4, "share": 0.2597402597402597, "count": 20, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 1.65, "colorValue": 3.3}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.6, "colorValue": 2.6}], "x": 1520, "y": 250.0, "color": "#db4041"}, {"id": "2025-3", "year": 2025, "group": 3, "share": 0.2077922077922078, "count": 16, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 1.8125, "colorValue": 3.625}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.375, "colorValue": 4.375}], "x": 1520, "y": 390.0, "color": "#e0595a"}, {"id": "2025-1", "year": 2025, "group": 1, "share": 0.19480519480519481, "count": 15, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.2, "colorValue": 4.2}], "x": 1520, "y": 530.0, "color": "#e47373"}, {"id": "2026-4", "year": 2026, "group": 4, "share": 0.4444444444444444, "count": 20, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 1.95, "colorValue": 3.9}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.5, "colorValue": 4.5}], "x": 1940, "y": 110.0, "color": "#9467bd"}, {"id": "2026-2", "year": 2026, "group": 2, "share": 0.24444444444444444, "count": 11, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.2727272727272725, "colorValue": 4.2727272727272725}], "x": 1940, "y": 250.0, "color": "#a079c5"}, {"id": "2026-3", "year": 2026, "group": 3, "share": 0.2, "count": 9, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 2.0, "colorValue": 4.0}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.6666666666666665, "colorValue": 2.6666666666666665}], "x": 1940, "y": 390.0, "color": "#ad8acc"}, {"id": "2026-1", "year": 2026, "group": 1, "share": 0.1111111111111111, "count": 5, "criteria": [{"question": "A l'issue de ce cours vous avez le sentiment...", "label": "Apprentissage de nouvelles notions", "value": 3.0, "colorValue": 6.0}, {"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.6, "colorValue": 2.6}], "x": 1940, "y": 530.0, "color": "#b99cd4"}], "links": [{"source": "2022-1", "target": "2023-1", "distance": 0.0}, {"source": "2022-2", "target": "2023-2", "distance": 2.220446049250313e-16}, {"source": "2022-3", "target": "2023-3", "distance": 0.025925925925925963}, {"source": "2023-1", "target": "2024-1", "distance": 0.0}, {"source": "2023-2", "target": "2024-3", "distance": 0.06666666666666698}, {"source": "2023-3", "target": "2024-4", "distance": 0.33164983164983153}, {"source": "2024-1", "target": "2025-2", "distance": 0.026785714285714274}, {"source": "2024-2", "target": "2025-1", "distance": 0.029687499999999978}, {"source": "2024-3", "target": "2025-4", "distance": 0.06875}, {"source": "2024-4", "target": "2025-3", "distance": 0.008049242424242431}, {"source": "2025-1", "target": "2026-2", "distance": 0.009090909090909094}, {"source": "2025-2", "target": "2026-1", "distance": 0.012500000000000011}, {"source": "2025-3", "target": "2026-4", "distance": 0.038541666666666585}, {"source": "2025-4", "target": "2026-3", "distance": 0.06666666666666674}], "years": [2022, 2023, 2024, 2025, 2026], "yearNotes": {"2022": "- Première version du cours et des slides\n - CM en présentiel\n - Evaluation : TP noté + DS final", "2023": "- Vidéos sur les méthodes symétriques\n - Evaluation : TP noté + DS final", "2024": "- Vidéos sur les méthodes asymétriques\n- Classe (CM) inversé\n - Evaluation : TP noté + DS final", "2025": "- Classe (CM) inversé\n - Evaluation : TP noté + DS final", "2026": "- CM en présentiel avec vidéos à l'appui\n - Evaluation : DS intermédiaire + DS final"}};
+        const width = 2050, height = 720;
+        const svg = d3.select("svg");
+        const viewport = svg.append("g");
+        const linksLayer = viewport.append("g");
+        const labelsLayer = viewport.append("g");
+        const nodesLayer = viewport.append("g");
+        const tooltip = d3.select(".tooltip");
+        const nodeById = new Map(data.nodes.map(d => [d.id, d]));
+        const videoAcquisitionChart = data.nodes.some(d => d.criteria.some(c =>
+            c.label === "Utilité des vidéos" || c.question.includes("Ces vidéos vous ont-elles aidé")
+        )) && data.nodes.some(d => d.criteria.some(c => c.label === "Sentiment de compréhension"));
+        const greenChain = videoAcquisitionChart
+            ? [[2023, 39], [2024, 23], [2024, 34], [2025, 40], [2026, 64]]
+            : [[2022, 19], [2023, 19], [2024, 38], [2025, 40], [2026, 49]];
+        const redChain = videoAcquisitionChart
+            ? [[2023, 31], [2024, 43], [2025, 43], [2026, 36]]
+            : [[2022, 33], [2023, 61], [2024, 43], [2025, 30], [2026, 36]];
+        function highlightClass(d) {
+            const point = [d.year, Math.round(d.share * 100)];
+            const isGreenPoint = greenChain.some(([year, share]) => year === point[0] && share === point[1]);
+            if (!videoAcquisitionChart && isGreenPoint && d.year === 2023 && point[1] === 19) {
+                const clarity = d.criteria.find(c => c.label === "Clarté des explications");
+                return clarity && clarity.value > 5 ? "highlight-green" : "";
+            }
+            if (isGreenPoint) return "highlight-green";
+            const isRedPoint = redChain.some(([year, share]) => year === point[0] && share === point[1]);
+            if (!videoAcquisitionChart && isRedPoint && d.year === 2025 && point[1] === 30) {
+                const clarity = d.criteria.find(c => c.label === "Clarté des explications");
+                return clarity && clarity.value > 4 ? "highlight-red" : "";
+            }
+            if (isRedPoint) return "highlight-red";
+            return "";
+        }
+
+        const link = linksLayer.selectAll("path").data(data.links).join("path")
+            .attr("class", d => {
+                const source = nodeById.get(d.source), target = nodeById.get(d.target);
+                const sourceClass = highlightClass(source);
+                return `link${sourceClass && sourceClass === highlightClass(target) ? ` ${sourceClass}` : ""}`;
+            })
+            .attr("stroke-width", d => {
+                const source = nodeById.get(d.source), target = nodeById.get(d.target);
+                const highlighted = highlightClass(source) && highlightClass(source) === highlightClass(target);
+                return highlighted ? 5 : 1 + 5 * (1 - Math.min(d.distance, 1));
+            });
+        const linkLabel = labelsLayer.selectAll("text").data(data.links).join("text")
+            .attr("class", "link-label").text(d => d.distance.toFixed(2));
+
+        const scoreColor = d3.scaleLinear().domain([0, 1.5, 2.7, 3, 3.3, 4.5, 6])
+            .range(["#e60000", "#ff1f1f", "#ff3434", "#ff7900", "#ff9f1a", "#81c784", "#00a83b"])
+            .clamp(true);
+        const node = nodesLayer.selectAll("g").data(data.nodes).join("g")
+            .attr("class", "node")
+            .attr("transform", d => `translate(${d.x},${d.y})`)
+            .call(d3.drag().on("start", (event, d) => { d.dragged = true; })
+                .on("drag", (event, d) => {
+                    d.x = event.x; d.y = event.y;
+                    d3.select(event.sourceEvent.target.closest("g.node"))
+                        .attr("transform", `translate(${d.x},${d.y})`);
+                    updateLinks();
+                })
+                .on("end", (event, d) => { d.dragged = false; }));
+
+        const card = node.append("g").attr("class", "criteria-card")
+            .attr("transform", d => `translate(-240,${-(d.criteria.length * 25 + 12) / 2})`);
+        card.append("rect").attr("width", 205)
+            .attr("height", d => d.criteria.length * 25 + 12).attr("rx", 9);
+        card.each(function(d) {
+            const rows = d3.select(this).selectAll("g.criteria-row")
+                .data(d.criteria).join("g").attr("class", "criteria-row")
+                .attr("transform", (criterion, i) => `translate(0,${10 + i * 25})`);
+            rows.append("title").text(criterion => criterion.question);
+            rows.append("rect").attr("class", "criteria-swatch")
+                .attr("x", 9).attr("y", -7).attr("width", 14).attr("height", 14)
+                .attr("rx", 3).style("fill", criterion => criterion.value == null
+                    ? "#cbd5e1" : scoreColor(criterion.colorValue));
+            rows.append("text").attr("class", "criteria-label")
+                .attr("x", 29).attr("y", 0).text(criterion => criterion.label);
+            rows.append("text").attr("class", "criteria-value")
+                .attr("x", 196).attr("y", 0).text(criterion => criterion.value == null
+                    ? "n/d" : criterion.value.toFixed(1));
+        });
+
+        node.append("circle").attr("class", "node-circle").attr("r", 42)
+            .attr("fill", d => d.color)
+            .style("stroke", d => highlightClass(d) === "highlight-green" ? "#16a34a"
+                : highlightClass(d) === "highlight-red" ? "#dc2626" : "white")
+            .style("stroke-width", d => highlightClass(d) ? "5px" : "3px");
+        node.append("text").attr("class", "node-label").text(d => d3.format(".0%") (d.share));
+        node.on("mouseenter", (event, d) => {
+            tooltip.style("opacity", 1).html(
+                `<strong>${d.year} · Cluster ${d.group}</strong><br/>` +
+                `${d.count} répondants · ${d3.format(".1%") (d.share)}`
+            );
+        }).on("mousemove", event => {
+            tooltip.style("left", `${event.clientX + 14}px`).style("top", `${event.clientY + 14}px`);
+        }).on("mouseleave", () => tooltip.style("opacity", 0));
+
+        function updateLinks() {
+            link.attr("d", d => {
+                const a = nodeById.get(typeof d.source === "string" ? d.source : d.source.id);
+                const b = nodeById.get(typeof d.target === "string" ? d.target : d.target.id);
+                const middle = (a.x + b.x) / 2;
+                return `M${a.x},${a.y} C${middle},${a.y} ${middle},${b.y} ${b.x},${b.y}`;
+            });
+            linkLabel.attr("x", d => (nodeById.get(d.source).x + nodeById.get(d.target).x) / 2)
+                .attr("y", d => (nodeById.get(d.source).y + nodeById.get(d.target).y) / 2 - 7);
+        }
+        updateLinks();
+
+        viewport.selectAll(".year-label").data(data.years).join("text")
+            .attr("class", "year-label").attr("x", (d, i) => 260 + i * 420)
+            .attr("y", height - 125).text(d => d);
+
+        const yearNotes = data.years
+            .map(year => ({ year, text: data.yearNotes[String(year)] }))
+        const note = viewport.selectAll("foreignObject.year-note-container")
+            .data(yearNotes).join("foreignObject")
+            .attr("class", "year-note-container")
+            .attr("x", d => {
+                const index = data.years.indexOf(d.year);
+                return 260 + index * 420 - 90;
+            })
+            .attr("y", height - 112).attr("width", 180).attr("height", 92);
+        note.append("xhtml:div")
+            .attr("class", d => `year-note${d.text && d.text.trim() ? "" : " placeholder"}`)
+            .text(d => d.text && d.text.trim() ? d.text : "Ajouter une annotation…");
+
+        svg.call(d3.zoom().scaleExtent([0.5, 2.5]).on("zoom", event =>
+            viewport.attr("transform", event.transform)));
+    </script>
+</body>
+</html>

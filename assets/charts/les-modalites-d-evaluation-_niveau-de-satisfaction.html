@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profils de clusters par année</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root { color-scheme: light; font-family: Inter, system-ui, sans-serif; color: #172033; }
+        body { margin: 0; background: #f4f7fb; }
+        header { padding: 24px 30px 12px; }
+        h1 { margin: 0 0 7px; font-size: 22px; }
+        p { margin: 0; color: #61708a; font-size: 14px; }
+        .canvas { margin: 12px 20px 24px; overflow: auto; border: 1px solid #e0e7f0;
+            border-radius: 16px; background: white; box-shadow: 0 8px 28px #243b530d; }
+        svg { display: block; }
+        .link { fill: none; stroke: #8090a8; stroke-opacity: .58; }
+        .link.highlight-green { stroke: #16a34a; stroke-opacity: 1; }
+        .link.highlight-red { stroke: #dc2626; stroke-opacity: 1; }
+        .link-label { fill: #53627a; font-size: 12px; text-anchor: middle; }
+        .node circle { stroke: white; stroke-width: 3px; cursor: grab; }
+        .node:active circle { cursor: grabbing; }
+        .node-label { fill: white; font-size: 14px; font-weight: 750; text-anchor: middle;
+            dominant-baseline: central; pointer-events: none; }
+        .criteria-card { pointer-events: none; }
+        .criteria-card rect { fill: #ffffff; stroke: #dce4ee; stroke-width: 1.2px;
+            filter: drop-shadow(0 3px 5px #17203312); }
+        .criteria-label { fill: #53627a; font-size: 10px; dominant-baseline: central; }
+        .criteria-value { fill: #26344b; font-size: 10px; font-weight: 700;
+            text-anchor: end; dominant-baseline: central; }
+        .criteria-swatch { stroke: #ffffff; stroke-width: 1px; }
+        .year-label { fill: #34425a; font-size: 18px; font-weight: 700; text-anchor: middle; }
+        .year-note { box-sizing: border-box; width: 180px; height: 92px; padding: 10px 11px;
+            overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; background: #fff2a8;
+            border: 1px solid #eed66e; border-left: 4px solid #e9c84c; border-radius: 3px;
+            color: #594b20; font: 12px/1.35 Inter, system-ui, sans-serif;
+            box-shadow: 2px 4px 8px #56491d25; transform: rotate(-1deg); }
+        .year-note.placeholder { color: #98864a; font-style: italic; }
+        .tooltip { position: fixed; pointer-events: none; opacity: 0; padding: 10px 12px;
+            border-radius: 9px; color: white; background: #172033; font-size: 13px;
+            line-height: 1.5; box-shadow: 0 5px 18px #17203330; }
+        .hint { margin-left: 30px; color: #718096; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Évolution des profils de clusters</h1>
+           <p>Un nœud représente un profil d'étudiant; le pourcentage représente sa part des répondants.
+               À gauche, les moyennes des critères sont colorées du rouge (0) au vert (6).
+               Les liens relient les profils les plus proches entre deux années consécutives.</p>
+    </header>
+    <div class="canvas"><svg role="img" aria-label="Graphe des clusters par année"
+            width="2050" height="720" viewBox="0 0 2050 720"></svg></div>
+    <div class="hint">Glisser pour déplacer les nœuds · molette ou glisser le fond pour zoomer et se déplacer</div>
+    <div class="tooltip"></div>
+    <script>
+        const data = {"nodes": [{"id": "2022-2", "year": 2022, "group": 2, "share": 0.6071428571428571, "count": 51, "criteria": [{"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 2.0392156862745097}], "x": 260, "y": 110.0, "color": "#1f77b4"}, {"id": "2022-1", "year": 2022, "group": 1, "share": 0.39285714285714285, "count": 33, "criteria": [{"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 4.666666666666667}], "x": 260, "y": 530.0, "color": "#6da7ce"}, {"id": "2023-2", "year": 2023, "group": 2, "share": 0.6233766233766234, "count": 48, "criteria": [{"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 5.5}], "x": 680, "y": 110.0, "color": "#ff7f0e"}, {"id": "2023-1", "year": 2023, "group": 1, "share": 0.37662337662337664, "count": 29, "criteria": [{"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 3.2413793103448274}], "x": 680, "y": 530.0, "color": "#ffac62"}, {"id": "2024-3", "year": 2024, "group": 3, "share": 0.4461538461538462, "count": 29, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.413793103448276}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 5.482758620689655}], "x": 1100, "y": 110.0, "color": "#2ca02c"}, {"id": "2024-1", "year": 2024, "group": 1, "share": 0.4153846153846154, "count": 27, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.888888888888889}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 4.222222222222222}], "x": 1100, "y": 320.0, "color": "#51b151"}, {"id": "2024-2", "year": 2024, "group": 2, "share": 0.13846153846153847, "count": 9, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.333333333333333}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 3.3333333333333335}], "x": 1100, "y": 530.0, "color": "#76c176"}, {"id": "2025-1", "year": 2025, "group": 1, "share": 0.4025974025974026, "count": 31, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.290322580645161}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 4.612903225806452}], "x": 1520, "y": 110.0, "color": "#d62728"}, {"id": "2025-2", "year": 2025, "group": 2, "share": 0.4025974025974026, "count": 31, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.4516129032258065}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 2.5483870967741935}], "x": 1520, "y": 320.0, "color": "#dd4d4e"}, {"id": "2025-3", "year": 2025, "group": 3, "share": 0.19480519480519481, "count": 15, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.7333333333333334}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 5.266666666666667}], "x": 1520, "y": 530.0, "color": "#e47373"}, {"id": "2026-1", "year": 2026, "group": 1, "share": 0.4222222222222222, "count": 19, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.2105263157894735}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 6.0}], "x": 1940, "y": 110.0, "color": "#9467bd"}, {"id": "2026-3", "year": 2026, "group": 3, "share": 0.35555555555555557, "count": 16, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 4.25}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 4.5}], "x": 1940, "y": 320.0, "color": "#a782c9"}, {"id": "2026-2", "year": 2026, "group": 2, "share": 0.2222222222222222, "count": 10, "criteria": [{"question": "Quel est votre niveau de satisfaction concernant ce module ?", "label": "Niveau de satisfaction", "value": 2.6}, {"question": "Les modalités d'évaluation ont-elles été présentées clairement ?", "label": "Les modalités d'évaluation…", "value": 3.9}], "x": 1940, "y": 530.0, "color": "#b99cd4"}], "links": [{"source": "2022-1", "target": "2023-2", "distance": 0.16666666666666663}, {"source": "2022-2", "target": "2023-1", "distance": 0.24043272481406353}, {"source": "2023-1", "target": "2024-2", "distance": 0.018390804597701205}, {"source": "2023-2", "target": "2024-3", "distance": 0.0034482758620687504}, {"source": "2024-1", "target": "2025-3", "distance": 0.12388888888888899}, {"source": "2024-2", "target": "2025-1", "distance": 0.1333333333333333}, {"source": "2024-3", "target": "2025-1", "distance": 0.10241935483870973}, {"source": "2025-1", "target": "2026-3", "distance": 0.016330645161290347}, {"source": "2025-2", "target": "2026-2", "distance": 0.15370967741935476}, {"source": "2025-3", "target": "2026-2", "distance": 0.15333333333333354}], "years": [2022, 2023, 2024, 2025, 2026], "yearNotes": {"2022": "- Première version du cours et des slides\n - CM en présentiel\n - Evaluation : TP noté + DS final", "2023": "- Vidéos sur les méthodes symétriques\n - Evaluation : TP noté + DS final", "2024": "- Vidéos sur les méthodes asymétriques\n- Classe (CM) inversé\n - Evaluation : TP noté + DS final", "2025": "- Classe (CM) inversé\n - Evaluation : TP noté + DS final", "2026": "- CM en présentiel avec vidéos à l'appui\n - Evaluation : DS intermédiaire + DS final"}};
+        const width = 2050, height = 720;
+        const svg = d3.select("svg");
+        const viewport = svg.append("g");
+        const linksLayer = viewport.append("g");
+        const labelsLayer = viewport.append("g");
+        const nodesLayer = viewport.append("g");
+        const tooltip = d3.select(".tooltip");
+        const nodeById = new Map(data.nodes.map(d => [d.id, d]));
+        const greenChain = [[2022, 19], [2023, 19], [2024, 38], [2025, 40], [2026, 49]];
+        const redChain = [[2022, 33], [2023, 61], [2024, 43], [2025, 30], [2026, 36]];
+        function highlightClass(d) {
+            const point = [d.year, Math.round(d.share * 100)];
+            const isGreenPoint = greenChain.some(([year, share]) => year === point[0] && share === point[1]);
+            if (isGreenPoint && d.year === 2023 && point[1] === 19) {
+                const clarity = d.criteria.find(c => c.label === "Clarté des explications");
+                return clarity && clarity.value > 5 ? "highlight-green" : "";
+            }
+            if (isGreenPoint) return "highlight-green";
+            const isRedPoint = redChain.some(([year, share]) => year === point[0] && share === point[1]);
+            if (isRedPoint && d.year === 2025 && point[1] === 30) {
+                const clarity = d.criteria.find(c => c.label === "Clarté des explications");
+                return clarity && clarity.value > 4 ? "highlight-red" : "";
+            }
+            if (isRedPoint) return "highlight-red";
+            return "";
+        }
+
+        const link = linksLayer.selectAll("path").data(data.links).join("path")
+            .attr("class", d => {
+                const source = nodeById.get(d.source), target = nodeById.get(d.target);
+                const sourceClass = highlightClass(source);
+                return `link${sourceClass && sourceClass === highlightClass(target) ? ` ${sourceClass}` : ""}`;
+            })
+            .attr("stroke-width", d => {
+                const source = nodeById.get(d.source), target = nodeById.get(d.target);
+                const highlighted = highlightClass(source) && highlightClass(source) === highlightClass(target);
+                return highlighted ? 5 : 1 + 5 * (1 - Math.min(d.distance, 1));
+            });
+        const linkLabel = labelsLayer.selectAll("text").data(data.links).join("text")
+            .attr("class", "link-label").text(d => d.distance.toFixed(2));
+
+        const scoreColor = d3.scaleLinear().domain([0, 1.5, 2.7, 3, 3.3, 4.5, 6])
+            .range(["#e60000", "#ff1f1f", "#ff3434", "#ff7900", "#ff9f1a", "#81c784", "#00a83b"])
+            .clamp(true);
+        const node = nodesLayer.selectAll("g").data(data.nodes).join("g")
+            .attr("class", "node")
+            .attr("transform", d => `translate(${d.x},${d.y})`)
+            .call(d3.drag().on("start", (event, d) => { d.dragged = true; })
+                .on("drag", (event, d) => {
+                    d.x = event.x; d.y = event.y;
+                    d3.select(event.sourceEvent.target.closest("g.node"))
+                        .attr("transform", `translate(${d.x},${d.y})`);
+                    updateLinks();
+                })
+                .on("end", (event, d) => { d.dragged = false; }));
+
+        const card = node.append("g").attr("class", "criteria-card")
+            .attr("transform", d => `translate(-240,${-(d.criteria.length * 25 + 12) / 2})`);
+        card.append("rect").attr("width", 205)
+            .attr("height", d => d.criteria.length * 25 + 12).attr("rx", 9);
+        card.each(function(d) {
+            const rows = d3.select(this).selectAll("g.criteria-row")
+                .data(d.criteria).join("g").attr("class", "criteria-row")
+                .attr("transform", (criterion, i) => `translate(0,${10 + i * 25})`);
+            rows.append("title").text(criterion => criterion.question);
+            rows.append("rect").attr("class", "criteria-swatch")
+                .attr("x", 9).attr("y", -7).attr("width", 14).attr("height", 14)
+                .attr("rx", 3).style("fill", criterion => criterion.value == null
+                    ? "#cbd5e1" : scoreColor(criterion.value));
+            rows.append("text").attr("class", "criteria-label")
+                .attr("x", 29).attr("y", 0).text(criterion => criterion.label);
+            rows.append("text").attr("class", "criteria-value")
+                .attr("x", 196).attr("y", 0).text(criterion => criterion.value == null
+                    ? "n/d" : criterion.value.toFixed(1));
+        });
+
+        node.append("circle").attr("class", "node-circle").attr("r", 42)
+            .attr("fill", d => d.color)
+            .style("stroke", d => highlightClass(d) === "highlight-green" ? "#16a34a"
+                : highlightClass(d) === "highlight-red" ? "#dc2626" : "white")
+            .style("stroke-width", d => highlightClass(d) ? "5px" : "3px");
+        node.append("text").attr("class", "node-label").text(d => d3.format(".0%") (d.share));
+        node.on("mouseenter", (event, d) => {
+            tooltip.style("opacity", 1).html(
+                `<strong>${d.year} · Cluster ${d.group}</strong><br/>` +
+                `${d.count} répondants · ${d3.format(".1%") (d.share)}`
+            );
+        }).on("mousemove", event => {
+            tooltip.style("left", `${event.clientX + 14}px`).style("top", `${event.clientY + 14}px`);
+        }).on("mouseleave", () => tooltip.style("opacity", 0));
+
+        function updateLinks() {
+            link.attr("d", d => {
+                const a = nodeById.get(typeof d.source === "string" ? d.source : d.source.id);
+                const b = nodeById.get(typeof d.target === "string" ? d.target : d.target.id);
+                const middle = (a.x + b.x) / 2;
+                return `M${a.x},${a.y} C${middle},${a.y} ${middle},${b.y} ${b.x},${b.y}`;
+            });
+            linkLabel.attr("x", d => (nodeById.get(d.source).x + nodeById.get(d.target).x) / 2)
+                .attr("y", d => (nodeById.get(d.source).y + nodeById.get(d.target).y) / 2 - 7);
+        }
+        updateLinks();
+
+        viewport.selectAll(".year-label").data(data.years).join("text")
+            .attr("class", "year-label").attr("x", (d, i) => 260 + i * 420)
+            .attr("y", height - 125).text(d => d);
+
+        const yearNotes = data.years
+            .map(year => ({ year, text: data.yearNotes[String(year)] }))
+        const note = viewport.selectAll("foreignObject.year-note-container")
+            .data(yearNotes).join("foreignObject")
+            .attr("class", "year-note-container")
+            .attr("x", d => {
+                const index = data.years.indexOf(d.year);
+                return 260 + index * 420 - 90;
+            })
+            .attr("y", height - 112).attr("width", 180).attr("height", 92);
+        note.append("xhtml:div")
+            .attr("class", d => `year-note${d.text && d.text.trim() ? "" : " placeholder"}`)
+            .text(d => d.text && d.text.trim() ? d.text : "Ajouter une annotation…");
+
+        svg.call(d3.zoom().scaleExtent([0.5, 2.5]).on("zoom", event =>
+            viewport.attr("transform", event.transform)));
+    </script>
+</body>
+</html>
