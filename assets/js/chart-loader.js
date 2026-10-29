@@ -92,5 +92,12 @@
 		});
 	}
 
+	document.querySelectorAll('svg[data-caption]').forEach(function (svg) {
+		var caption = document.createElement('p');
+		caption.className = 'chart-caption';
+		caption.textContent = svg.dataset.caption;
+		svg.parentNode.appendChild(caption);
+	});
+
 	document.querySelectorAll('svg[data-source]').forEach(load);
 })();

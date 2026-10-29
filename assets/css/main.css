@@ -1904,6 +1904,12 @@ input, select, textarea {
 	.course-chart .video-axis-label { fill: #c56b16; }
 	.course-chart .legend { fill: #526078; font-size: 12px; }
 
+	.chart-caption {
+		text-align: center;
+		margin: 0.5rem 0 0;
+		font-style: italic;
+	}
+
 	.source-chart {
 		display: block;
 		width: 100%;
