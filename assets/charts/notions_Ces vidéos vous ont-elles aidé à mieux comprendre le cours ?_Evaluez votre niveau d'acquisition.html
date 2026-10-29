@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Satisfaction selon le sentiment d’apprentissage</title>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<style>
+		:root { color-scheme: light; font-family: Inter, system-ui, sans-serif; color: #172033; background: #f4f7fb; }
+		* { box-sizing: border-box; }
+		body { margin: 0; padding: 28px clamp(16px, 4vw, 56px); }
+		header, .chart-card, .footnote { max-width: 1050px; margin-left: auto; margin-right: auto; }
+		header { margin-bottom: 20px; }
+		h1 { margin: 0 0 8px; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.025em; }
+		header p { margin: 0; color: #61708a; font-size: 14px; line-height: 1.55; }
+		.chart-card { padding: 18px 20px 14px; border: 1px solid #e0e7f0; border-radius: 16px; background: #fff; box-shadow: 0 8px 28px #243b530d; }
+		.summary { padding: 2px 6px 12px; color: #53627a; font-size: 13px; }
+		.summary strong { color: #26344b; }
+		svg { display: block; width: 100%; height: auto; overflow: visible; }
+		.grid line { stroke: #e8edf4; }
+		.grid .domain { display: none; }
+		.axis path, .axis line { stroke: #cbd5e1; }
+		.axis text { fill: #61708a; font-size: 12px; }
+		.bar { fill: steelblue; transition: fill .15s ease; }
+		.bar:hover { fill: #285d80; }
+		.error-line, .error-cap { stroke: #26344b; stroke-width: 1.6; }
+		.value-label { fill: #26344b; font-size: 12px; font-weight: 700; text-anchor: middle; }
+		.count-label { fill: #718096; font-size: 11px; text-anchor: middle; }
+		.axis-title { fill: #34425a; font-size: 13px; font-weight: 650; text-anchor: middle; }
+		.tooltip { position: fixed; z-index: 3; pointer-events: none; opacity: 0; padding: 10px 12px; border-radius: 9px; color: #fff; background: #172033; font-size: 13px; line-height: 1.55; box-shadow: 0 5px 18px #17203330; transform: translate(12px, 12px); }
+		.footnote { margin-top: 12px; color: #718096; font-size: 12px; line-height: 1.5; }
+		@media (max-width: 650px) { body { padding: 20px 12px; } .chart-card { padding: 14px 8px 10px; } .axis text { font-size: 10px; } }
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Satisfaction moyenne selon le sentiment d’apprentissage</h1>
+		<p>Comparaison de la satisfaction concernant le module selon le sentiment des répondants sur les notions apprises ou mieux comprises.</p>
+	</header>
+	<main class="chart-card">
+		<div class="summary">Fichier : <strong>form_2026.csv</strong> · Réponses analysées : <strong>255</strong></div>
+		<svg id="chart" viewBox="0 0 1000 570" role="img" aria-label="Satisfaction moyenne selon le sentiment d’apprentissage ou de compréhension"></svg>
+	</main>
+	<p class="footnote">Les barres représentent la satisfaction moyenne (/6) et les traits verticaux l’écart-type. Le nombre de réponses par catégorie est indiqué sous chaque barre.</p>
+	<div class="tooltip" role="status"></div>
+	<script>
+		const data = [{"answer": "1.0", "mean": 3.5625, "std": 0.9639329160614168, "count": 16}, {"answer": "2.0", "mean": 2.8181818181818183, "std": 0.873862897505303, "count": 11}, {"answer": "3.0", "mean": 3.32, "std": 0.9, "count": 25}, {"answer": "4.0", "mean": 3.381818181818182, "std": 0.9905275266971542, "count": 55}, {"answer": "5.0", "mean": 3.44, "std": 0.8580304284908642, "count": 75}, {"answer": "6.0", "mean": 3.5205479452054793, "std": 0.8836412834449393, "count": 73}];
+		const svg = d3.select("#chart");
+		const width = 1000, height = 570;
+		const margin = { top: 38, right: 34, bottom: 142, left: 76 };
+		const innerWidth = width - margin.left - margin.right;
+		const innerHeight = height - margin.top - margin.bottom;
+		const chart = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+		const x = d3.scaleBand().domain(data.map(d => d.answer)).range([0, innerWidth]).padding(0.27);
+		const y = d3.scaleLinear().domain([0, 6]).range([innerHeight, 0]);
+		const tooltip = d3.select(".tooltip");
+
+		chart.append("g").attr("class", "grid")
+			.call(d3.axisLeft(y).tickValues(d3.range(0, 7)).tickSize(-innerWidth).tickFormat(""));
+		chart.append("g").attr("class", "axis")
+			.call(d3.axisLeft(y).tickValues(d3.range(0, 7)));
+		const xAxis = chart.append("g").attr("class", "axis")
+			.attr("transform", `translate(0,${innerHeight})`)
+			.call(d3.axisBottom(x).tickSize(0).tickPadding(12));
+		xAxis.selectAll(".tick text").each(function() {
+			const text = d3.select(this);
+			const words = text.text().split(/\s+/).reverse();
+			text.text(null).attr("text-anchor", "middle");
+			let line = [], lineNumber = 0;
+			let tspan = text.append("tspan").attr("x", 0).attr("y", 10);
+			let word;
+			while ((word = words.pop())) {
+				line.push(word);
+				tspan.text(line.join(" "));
+				if (tspan.node().getComputedTextLength() > 165 && line.length > 1) {
+					line.pop();
+					tspan.text(line.join(" "));
+					line = [word];
+					tspan = text.append("tspan").attr("x", 0)
+						.attr("y", 10).attr("dy", `${++lineNumber * 1.2}em`).text(word);
+				}
+			}
+		});
+
+		const groups = chart.selectAll("g.bar-group").data(data).join("g").attr("class", "bar-group");
+		groups.append("rect").attr("class", "bar")
+			.attr("x", d => x(d.answer)).attr("y", d => y(d.mean))
+			.attr("width", x.bandwidth()).attr("height", d => innerHeight - y(d.mean)).attr("rx", 5);
+		groups.filter(d => d.std !== null).append("line").attr("class", "error-line")
+			.attr("x1", d => x(d.answer) + x.bandwidth() / 2).attr("x2", d => x(d.answer) + x.bandwidth() / 2)
+			.attr("y1", d => y(Math.min(6, d.mean + d.std))).attr("y2", d => y(Math.max(0, d.mean - d.std)));
+		groups.filter(d => d.std !== null).append("line").attr("class", "error-cap")
+			.attr("x1", d => x(d.answer) + x.bandwidth() / 2 - 6).attr("x2", d => x(d.answer) + x.bandwidth() / 2 + 6)
+			.attr("y1", d => y(Math.min(6, d.mean + d.std))).attr("y2", d => y(Math.min(6, d.mean + d.std)));
+		groups.filter(d => d.std !== null).append("line").attr("class", "error-cap")
+			.attr("x1", d => x(d.answer) + x.bandwidth() / 2 - 6).attr("x2", d => x(d.answer) + x.bandwidth() / 2 + 6)
+			.attr("y1", d => y(Math.max(0, d.mean - d.std))).attr("y2", d => y(Math.max(0, d.mean - d.std)));
+		groups.append("text").attr("class", "value-label")
+			.attr("x", d => x(d.answer) + x.bandwidth() / 2).attr("y", d => y(d.mean + (d.std || 0)) - 9)
+			.text(d => d.mean.toFixed(2));
+		groups.append("text").attr("class", "count-label")
+			.attr("x", d => x(d.answer) + x.bandwidth() / 2).attr("y", innerHeight + 105)
+			.text(d => `n = ${d.count}`);
+		groups.append("title").text(d =>
+			`${d.answer} · Moyenne : ${d.mean.toFixed(2)}/6 · ` +
+			`${d.std === null ? "Écart-type non défini (une réponse)" : `Écart-type : ${d.std.toFixed(2)}`} · ${d.count} réponses`
+		);
+		groups.on("mouseenter", (event, d) => {
+			tooltip.style("opacity", 1).html(
+				`<strong>${d.answer}</strong><br/>Moyenne : ${d.mean.toFixed(2)} / 6<br/>` +
+				`${d.std === null ? "Écart-type non défini (une réponse)" : `Écart-type : ${d.std.toFixed(2)}`}<br/>${d.count} réponses`
+			);
+		}).on("mousemove", event => tooltip.style("left", `${event.clientX}px`).style("top", `${event.clientY}px`))
+			.on("mouseleave", () => tooltip.style("opacity", 0));
+		chart.append("text").attr("class", "axis-title").attr("transform", "rotate(-90)")
+			.attr("x", -innerHeight / 2).attr("y", -54).text("Satisfaction moyenne (/6)");
+		chart.append("text").attr("class", "axis-title").attr("x", innerWidth / 2)
+			.attr("y", innerHeight + 137).text("Sentiment sur les notions apprises et comprises");
+	</script>
+</body>
+</html>
