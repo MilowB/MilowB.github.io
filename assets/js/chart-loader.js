@@ -16,7 +16,7 @@
 				.filter(function (s) { return !SKIPPED_SELECTOR.test(s); })
 				.map(function (s) {
 					return /^\.tooltip(?![\w-])/.test(s) ? s.replace('.tooltip', '.chart-tooltip') : scope + ' ' + s;
-				});
+				});	
 			if (selectors.length) output.push(selectors.join(',') + '{' + rule.style.cssText + '}');
 		});
 		return output.join('\n');
