@@ -24,7 +24,7 @@
 
 	function scopedD3(host, tooltip, svgElement) {
 		function resolve(selector) {
-			if (selector === 'svg') return svgElement;
+			if (selector === 'svg' || selector === '#chart') return svgElement;
 			return selector === '.tooltip' ? tooltip : host.querySelector(selector);
 		}
 		return Object.assign({}, d3, {
