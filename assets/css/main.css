@@ -1809,6 +1809,12 @@ input, select, textarea {
 		overflow-wrap: anywhere;
 	}
 
+	.small-chart-container {
+		display: block;
+		width: 60%;
+		margin: auto;
+	}
+
 	.chart-container {
 		display: block;
 		width: 100%;
